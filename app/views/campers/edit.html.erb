@@ -1,0 +1,10 @@
+<h1>Edit Camper</h1>
+
+<%= render "form", camper: @camper %>
+
+<%= link_to "Destroy", camper_path(@camper), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %><br>
+
+<%= link_to "Camper List", campers_path %>

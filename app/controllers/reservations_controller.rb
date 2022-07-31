@@ -1,0 +1,72 @@
+class ReservationsController < ApplicationController
+  
+  def index
+    @reservations = Reservation.all
+  end
+
+  def list
+    @reservations = Reservation.all
+  end
+
+  def new
+    @reservation = Reservation.new
+  end
+
+  def create
+    @reservation = Reservation.new(reservation_params)
+    # calculate and set the total lot fee, minus discount if applicable
+    @reservation.set_total
+    @reservation.set_all_extras
+
+    if @reservation.save!
+      redirect_to @reservation
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @reservation = Reservation.find(params[:id])
+  end
+
+  def edit
+    @reservation = Reservation.find(params[:id])
+  end
+
+  def update
+    @reservation = Reservation.find(params[:id])
+
+    if @reservation.update(reservation_params)
+      # calculate and update the total lot fee
+      @reservation.set_total
+      redirect_to @reservation
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    # leave for now
+  end
+
+  def check_in
+    @reservation = Reservation.find(params[:id])
+    @reservation.check_in
+    @reservation.save!
+    redirect_to @reservation
+  end
+
+  def check_out
+    # only intended to "undo" a check-in
+    @reservation = Reservation.find(params[:id])
+    @reservation.check_out
+    @reservation.save!
+    redirect_to @reservation
+  end
+
+  private
+
+    def reservation_params
+      params.require(:reservation).permit(:fair_year, :deposit, :override_total, :special_request, :slides, :length, :vehicle_license, :vehicle_province, :vehicle_license_2, :vehicle_province_2, :checked_in, :adults, :pets, :kids, :total, :confirmed, :ext_charges, :tax_str, :tax_amount, :log, :onetime_discount, :archived, :cancelled, :checked_in_time, :lot_id, :discount_id, :group_id, :camper_id)
+    end
+end

@@ -1,0 +1,31 @@
+<%= form_with model: @reservation do |form| %>
+    <%= form.label :camper_id, "Select Camper" %><br>
+    <%= form.collection_select :camper_id, Camper.order(:last_name), :id, :last_name %>
+    <br>
+    <%= form.label :lot_id, "Select Lot" %><br>
+    <%= form.collection_select :lot_id, Lot.order(:name), :id, :name %>
+    <br>
+    <%= form.label :discount_id, "Select Discount" %><br>
+    <%= form.collection_select :discount_id, Discount.order(:name), :id, :name %>
+    <br>
+    <%= form.label :fair_year, "Fair Year" %><br>
+    <%= form.date_field :fair_year %><br>
+    <%= form.label :slides, "Number of slideouts" %><br>
+    <%= form.number_field :slides %><br>
+    <%= form.label :length, "Trailer Length" %><br>
+    <%= form.number_field :length %><br>
+    <%= form.label :vehicle_license, "Licence Plate" %><br>
+    <%= form.text_field :vehicle_license %><br>
+    <%= form.label :vehicle_license_2, "Licence Plate 2" %><br>
+    <%= form.text_field :vehicle_license_2 %><br>
+    <%= form.label :adults, "Number of Adults" %><br>
+    <%= form.number_field :adults %><br>
+    <%= form.label :kids, "Number of Children" %><br>
+    <%= form.number_field :kids %><br>
+    <%= form.label :pets, "Number of Pets" %><br>
+    <%= form.number_field :pets %><br>
+    <%= form.label :special_request, "Notes" %><br>
+    <%= form.text_field :special_request %><br>
+
+    <%= form.submit "Save Reservation" %>
+<% end %>

@@ -1,0 +1,98 @@
+<h1>Reservations#show</h1>
+
+<div>
+    <div>
+        <h2>Camper Information</h2>
+        <%= @reservation.camper.last_name %><br>
+        <%= @reservation.camper.first_name %><br>
+        <%= @reservation.camper.address %><br>
+        <%= @reservation.camper.postal_code %><br>
+        <%= @reservation.camper.phone %><br>
+        <%= @reservation.camper.email %><br>
+        <%= @reservation.camper.phone_2 %><br>
+        <%= @reservation.camper.email_2 %><br>
+    </div>
+    <div>
+        <h2>Reservation Details</h2>
+        Checked In: 
+        <%= @reservation.checked_in %><br>
+        Check In Time: 
+        <%= @reservation.checked_in_time %><br>
+        <%= link_to "Undo Check In", check_out_reservation_path(@reservation) %><br>
+        Lot: 
+        <%= @reservation.lot.name %><br>
+        License Plate: 
+        <%= @reservation.vehicle_license %><br>
+        # of slides: 
+        <%= @reservation.slides %><br>
+        Rig Length: 
+        <%= @reservation.length %><br>
+        # adults: 
+        <%= @reservation.adults %><br>
+        # children: 
+        <%= @reservation.kids %><br>
+        # pets: 
+        <%= @reservation.pets %><br>
+        ID: 
+        <%= @reservation.id %><br>
+    </div>
+    <div>
+        <h2>Payments</h2>
+        <% # Show any payments made %>
+        <p>Lot Fee: $<%= @reservation.total %></p>
+        <% # Display form to add extras %>
+        <% # Decide whether this form uses different controller action %>
+        <%= form_with model: @reservation do |f| %>
+            <%= f.fields_for :extra_charges do |ec_form| %>
+                <% ext = ec_form.object.extra %>
+                <%= ec_form.label :number, ext.name %>
+                <%= ec_form.number_field :number %>
+            <% end %>
+            <%= f.submit "Add Admissions" %>
+        <% end %>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Memo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @reservation.payments.each do |payment| %>
+                    <tr>
+                        <td><%= payment.created_at %></td>
+                        <td>$<%= payment.amount %></td>
+                        <td><%= if payment.payment_method
+                                    payment.payment_method.name
+                                else
+                                end  %></td>
+                        <td><%= payment.memo %></td>
+                    </tr>
+                <% end %>
+                <tr>
+                    <td>Total: </td>
+                    <td>$<%= @reservation.get_payments_total %>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <% # New Payment form %>
+            <%= form_with model: [ @reservation, @reservation.payments.build ] do |f| %>
+                <%= f.label :amount, "Payment Amount" %>
+                <%= f.number_field :amount, in: 0.0..1000.0 %>
+                <%= f.label :payment_method_id, "Method" %>
+                <%= f.collection_select :payment_method_id, PaymentMethod.order(:name), :id, :name %>
+                <%= f.label :memo, "Memo" %>
+                <%= f.text_field :memo %>
+                <%= f.submit "Confirm Payment" %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<div>
+
+</div>
