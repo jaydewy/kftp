@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     member do
       get 'check_in'
       get 'check_out'
+      
     end
+    get 'in_park', on: :collection
   end
 
   

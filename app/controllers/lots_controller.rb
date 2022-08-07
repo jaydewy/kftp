@@ -21,7 +21,8 @@ class LotsController < ApplicationController
   def destroy
   end
 
-  def list
+  def open
+    # use to create list of all unoccupied, active lots
   end
   
 end

@@ -26,6 +26,8 @@
     <%= form.number_field :pets %><br>
     <%= form.label :special_request, "Notes" %><br>
     <%= form.text_field :special_request %><br>
+    <%= form.label :non_renewable, "Non Renewable?" %>
+    <%= form.check_box :non_renewable %><br>
 
     <%= form.submit "Save Reservation" %>
 <% end %>

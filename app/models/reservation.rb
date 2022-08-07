@@ -8,6 +8,10 @@ class Reservation < ApplicationRecord
     has_many :extras, through: :extra_charges
     accepts_nested_attributes_for :extra_charges
 
+    # to-do list
+    #   still need code to check for conflicts with lots
+    #   check in all reservations for a group/camper
+
     def check_in
         # marks the reservation as checked in
         # add validations
@@ -37,11 +41,15 @@ class Reservation < ApplicationRecord
 
     def due
         pmt = Payment.subtotal(self.id)
-        self.total - pmt
+        self.total + self.get_extra_charges_total - pmt
     end
 
     def set_all_extras
         exts = Extra.all
         self.extras << exts
+    end
+
+    def get_extra_charges_total
+        ext_charges_total = ExtraCharge.subtotal(self.id)
     end
 end

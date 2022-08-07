@@ -3,14 +3,13 @@
 <div>
     <div>
         <h2>Camper Information</h2>
-        <%= @reservation.camper.last_name %><br>
-        <%= @reservation.camper.first_name %><br>
-        <%= @reservation.camper.address %><br>
-        <%= @reservation.camper.postal_code %><br>
-        <%= @reservation.camper.phone %><br>
-        <%= @reservation.camper.email %><br>
-        <%= @reservation.camper.phone_2 %><br>
-        <%= @reservation.camper.email_2 %><br>
+        Name: <%= @reservation.camper.first_name %> <%= @reservation.camper.last_name %><br>
+        Address: <%= @reservation.camper.address %><br>
+        Postal Code: <%= @reservation.camper.postal_code %><br>
+        Phone: <%= @reservation.camper.phone %><br>
+        Email: <%= @reservation.camper.email %><br>
+        Phone 2: <%= @reservation.camper.phone_2 %><br>
+        Email 2: <%= @reservation.camper.email_2 %><br>
     </div>
     <div>
         <h2>Reservation Details</h2>
@@ -26,7 +25,7 @@
         # of slides: 
         <%= @reservation.slides %><br>
         Rig Length: 
-        <%= @reservation.length %><br>
+        <%= @reservation.length %>ft<br>
         # adults: 
         <%= @reservation.adults %><br>
         # children: 
@@ -35,22 +34,59 @@
         <%= @reservation.pets %><br>
         ID: 
         <%= @reservation.id %><br>
+        Non Renewable: 
+        <%= @reservation.non_renewable %><br>
+        <%= link_to "Edit Reservation Details", edit_reservation_path(@reservation) %>
     </div>
     <div>
+        <div>
         <h2>Payments</h2>
-        <% # Show any payments made %>
-        <p>Lot Fee: $<%= @reservation.total %></p>
+        <% # Summary of charges %>
+        <% # Add in discount as well %>
+        <table>
+            <tr>
+                <td>Lot Fee:</td>
+                <td></td>
+                <td>$<%= @reservation.total %></td>
+            </tr>
+            <tr>
+                <td>Admissions:</td>
+            </tr>
+            <% @reservation.extra_charges.each do |exch| %>
+                <tr>
+                    <td><%= exch.extra.name %>:</td>
+                    <td>$<%= exch.extra.charge %>x<%= exch.number %></td>
+                    <td>$<%= exch.charge %></td>
+                </tr>
+            <% end %>
+            <tr>
+                <td></td>
+                <td> Admits Subtotal</td>
+                <td>$<%= @reservation.get_extra_charges_total %></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>TOTAL</td>
+                <td>$<%= @reservation.total + @reservation.get_extra_charges_total %></td>
+            </tr>
+            
+        </table>
+        </div>
+
+        <div>
         <% # Display form to add extras %>
-        <% # Decide whether this form uses different controller action %>
         <%= form_with model: @reservation do |f| %>
             <%= f.fields_for :extra_charges do |ec_form| %>
                 <% ext = ec_form.object.extra %>
                 <%= ec_form.label :number, ext.name %>
-                <%= ec_form.number_field :number %>
+                <%= ec_form.number_field :number, in: 0.0..10.0, step: 1.0 %>
             <% end %>
             <%= f.submit "Add Admissions" %>
         <% end %>
+        </div>
 
+        <div>
+        <% # Show all payments made %>
         <table>
             <thead>
                 <tr>
@@ -78,11 +114,13 @@
                 </tr>
             </tbody>
         </table>
+        </div>
+        
         <div>
             <% # New Payment form %>
             <%= form_with model: [ @reservation, @reservation.payments.build ] do |f| %>
                 <%= f.label :amount, "Payment Amount" %>
-                <%= f.number_field :amount, in: 0.0..1000.0 %>
+                <%= f.number_field :amount %>
                 <%= f.label :payment_method_id, "Method" %>
                 <%= f.collection_select :payment_method_id, PaymentMethod.order(:name), :id, :name %>
                 <%= f.label :memo, "Memo" %>
@@ -91,8 +129,4 @@
             <% end %>
         </div>
     </div>
-</div>
-
-<div>
-
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_28_141122) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_03_211048) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -138,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_28_141122) do
     t.bigint "camper_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "non_renewable", default: false
     t.index ["camper_id"], name: "index_reservations_on_camper_id"
     t.index ["discount_id"], name: "index_reservations_on_discount_id"
     t.index ["group_id"], name: "index_reservations_on_group_id"

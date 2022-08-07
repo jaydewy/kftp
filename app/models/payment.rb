@@ -11,4 +11,8 @@ class Payment < ApplicationRecord
         end
         return total
     end
+
+    def self.get_payments_by_date(dt)
+        @payments = Payment.where("created_at BETWEEN ? AND ?", dt.beginning_of_day, dt.end_of_day)
+    end
 end
