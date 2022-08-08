@@ -52,4 +52,9 @@ class Reservation < ApplicationRecord
     def get_extra_charges_total
         ext_charges_total = ExtraCharge.subtotal(self.id)
     end
+
+    def self.find_by_last_name(ln)
+        reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
+        #reservations = Reservation.where("last_name LIKE ?", Reservation.sanitize_sql_like(ln))
+    end
 end

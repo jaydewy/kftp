@@ -70,6 +70,12 @@ class ReservationsController < ApplicationController
     @in_park_reservations = Reservation.where("checked_in = ?", true)
   end
 
+  def search
+    # search for reservations - by last name
+    @reservations = Reservation.find_by_last_name(params[:query])
+    render :index
+  end
+
   private
 
     def reservation_params
