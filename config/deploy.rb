@@ -43,14 +43,14 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 # set :ssh_options, verify_host_key: :secure
 
 # Run the seeds on deployment
-namespace :deploy do
-    desc "Run seed"
-    task :seed do
-        on roles(:all) do
-            within current_path do
-                execute :bundle, :exec, 'rails', 'db:seed', 'RAILS_ENV=production'
-            end
-        end
-    end
-    after :migrating, :seed
-end
+# namespace :deploy do
+#     desc "Run seed"
+#     task :seed do
+#         on roles(:all) do
+#             within current_path do
+#                 execute :bundle, :exec, 'rails', 'db:seed', 'RAILS_ENV=production'
+#             end
+#         end
+#     end
+#     after :migrating, :seed
+# end
