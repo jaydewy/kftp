@@ -13,29 +13,87 @@
  *= require_tree .
  *= require_self
  */
-
- .content {
-    display: grid;
-    grid-template-areas: 
-        'logo header header header header'
-        'sidebar main main main main'
-        'sidebar main main main main'
-        'sidebar main main main main';
-    grid-template-columns: 150px auto auto auto auto;
+ @media screen {
+   .content {
+      display: grid;
+      grid-template-areas: 
+          'logo header header header header'
+          'sidebar main main main main'
+          'sidebar main main main main'
+          'sidebar main main main main';
+      grid-template-columns: 150px auto auto auto auto;
+   }
+  
+   .logo-header {
+      grid-area: logo;
+   }
+  
+   .header {
+      grid-area: header;
+   }
+  
+   .sidebar {
+      grid-area: sidebar;
+   }
+  
+   .main {
+      grid-area: main;
+   }
  }
 
- .logo-header {
-    grid-area: logo;
+ @media not print {
+   .printonly {
+      display: none;
+   }
  }
 
- .header {
-    grid-area: header;
- }
+ /* Style for printing invoices / lot sheets */
+ @media print {
+   .main {
+      display: grid;
+      grid-template-areas: 
+        'header header'
+        'tpinfo checkin'
+        'camperinfo resinfo'
+        'feeinfo feeinfo'
+        'paymentinfo paymentinfo';
+   }
 
- .sidebar {
-    grid-area: sidebar;
- }
+   .header, .sidebar, .logo-header, .noprint {
+      display: none;
+   }
 
- .main {
-    grid-area: main;
+   h1 {
+      grid-area: header;
+      text-align: center;
+   }
+
+   .tp_info {
+      grid-area: tpinfo;
+   }
+
+   .checkin_info {
+      grid-area: checkin;
+   }
+
+   .camper_info {
+      grid-area: camperinfo;
+   }
+
+   .res_info {
+      grid-area: resinfo;
+   }
+
+   .fee_info {
+      grid-area: feeinfo;
+   }
+
+   .payment_info {
+      grid-area: paymentinfo;
+   }
+
+   table {
+      width: 100%;
+   }
+
  }

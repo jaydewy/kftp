@@ -1,7 +1,13 @@
-<h1>Reservations#show</h1>
+<h1>Kinmount Fair Trailer Park - 2022</h1>
 
-<div>
-    <div>
+
+    <div class="tp_info printonly">
+        P.O. BOX 238<br>
+        KINMOUNT, ON, K0M 2A0<br>
+        (705)488-2871<br>
+        trailerpark@kinmountfair.net
+    </div>
+    <div class="camper_info">
         <h2>Camper Information</h2>
         Name: <%= @reservation.camper.first_name %> <%= @reservation.camper.last_name %><br>
         Address: <%= @reservation.camper.address %><br>
@@ -11,15 +17,8 @@
         Phone 2: <%= @reservation.camper.phone_2 %><br>
         Email 2: <%= @reservation.camper.email_2 %><br>
     </div>
-    <div>
+    <div class="res_info">
         <h2>Reservation Details</h2>
-        Checked In: 
-        <%= @reservation.checked_in %><br>
-        Check In Time: 
-        <%= @reservation.checked_in_time %><br>
-        <%= link_to "Undo Check In", check_out_reservation_path(@reservation) %><br>
-        Lot: 
-        <%= @reservation.lot.name %><br>
         License Plate: 
         <%= @reservation.vehicle_license %><br>
         # of slides: 
@@ -36,44 +35,59 @@
         <%= @reservation.id %><br>
         Non Renewable: 
         <%= @reservation.non_renewable %><br>
-        <%= link_to "Edit Reservation Details", edit_reservation_path(@reservation) %>
+        <span class="noprint"><%= link_to "Edit Reservation Details", edit_reservation_path(@reservation) %></span>
     </div>
-    <div>
-        <div>
+    <div class="checkin_info">
+        <span class="noprint">Checked In: 
+        <%= @reservation.checked_in %></span><br>
+        Check In Date: 
+        <%= @reservation.checked_in_time %><br>
+        <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %></span><br>
+        Lot: 
+        <%= @reservation.lot.name %><br>
+    </div>
+    <div class="fee_info">
         <h2>Payments</h2>
         <% # Summary of charges %>
         <% # Add in discount as well %>
         <table>
-            <tr>
-                <td>Lot Fee:</td>
-                <td></td>
-                <td>$<%= @reservation.total %></td>
-            </tr>
-            <tr>
-                <td>Admissions:</td>
-            </tr>
-            <% @reservation.extra_charges.each do |exch| %>
+            <thead>
                 <tr>
-                    <td><%= exch.extra.name %>:</td>
-                    <td>$<%= exch.extra.charge %>x<%= exch.number %></td>
-                    <td>$<%= exch.charge %></td>
+                    <th colspan=2>Description</th>
+                    <th>Amount</th>
                 </tr>
-            <% end %>
-            <tr>
-                <td></td>
-                <td> Admits Subtotal</td>
-                <td>$<%= @reservation.get_extra_charges_total %></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>TOTAL</td>
-                <td>$<%= @reservation.total + @reservation.get_extra_charges_total %></td>
-            </tr>
-            
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lot Fee:</td>
+                    <td></td>
+                    <td>$<%= @reservation.total %></td>
+                </tr>
+                <tr>
+                    <td>Admissions:</td>
+                </tr>
+                <% @reservation.extra_charges.each do |exch| %>
+                    <tr>
+                        <td><%= exch.extra.name %>:</td>
+                        <td>$<%= exch.extra.charge %>x<%= exch.number %></td>
+                        <td>$<%= exch.charge %></td>
+                    </tr>
+                <% end %>
+                <tr>
+                    <td></td>
+                    <td> Admissions Subtotal</td>
+                    <td>$<%= @reservation.get_extra_charges_total %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>TOTAL</td>
+                    <td>$<%= @reservation.total + @reservation.get_extra_charges_total %></td>
+                </tr>
+            </tbody>
         </table>
-        </div>
+    </div>
 
-        <div>
+    <div class="noprint">
         <% # Display form to add extras %>
         <%= form_with model: @reservation do |f| %>
             <%= f.fields_for :extra_charges do |ec_form| %>
@@ -83,9 +97,9 @@
             <% end %>
             <%= f.submit "Add Admissions" %>
         <% end %>
-        </div>
+    </div>
 
-        <div>
+    <div class="payment_info">
         <% # Show all payments made %>
         <table>
             <thead>
@@ -114,19 +128,18 @@
                 </tr>
             </tbody>
         </table>
-        </div>
-        
-        <div>
-            <% # New Payment form %>
-            <%= form_with model: [ @reservation, @reservation.payments.build ] do |f| %>
-                <%= f.label :amount, "Payment Amount" %>
-                <%= f.number_field :amount %>
-                <%= f.label :payment_method_id, "Method" %>
-                <%= f.collection_select :payment_method_id, PaymentMethod.order(:name), :id, :name %>
-                <%= f.label :memo, "Memo" %>
-                <%= f.text_field :memo %>
-                <%= f.submit "Confirm Payment" %>
-            <% end %>
-        </div>
     </div>
-</div>
+    
+    <div class="noprint">
+        <% # New Payment form %>
+        <%= form_with model: [ @reservation, @reservation.payments.build ] do |f| %>
+            <%= f.label :amount, "Payment Amount" %>
+            <%= f.number_field :amount %>
+            <%= f.label :payment_method_id, "Method" %>
+            <%= f.collection_select :payment_method_id, PaymentMethod.order(:name), :id, :name %>
+            <%= f.label :memo, "Memo" %>
+            <%= f.text_field :memo %>
+            <%= f.submit "Confirm Payment" %>
+        <% end %>
+    </div>
+
