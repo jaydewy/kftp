@@ -9,6 +9,8 @@ require "capistrano/rvm"
 
 require "capistrano/secrets_yml"
 
+require "capistrano/rails/migrations"
+
 # Load the SCM plugin appropriate to your project:
 #
 # require "capistrano/scm/hg"
