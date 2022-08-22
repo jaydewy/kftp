@@ -7,7 +7,7 @@ require "capistrano/deploy"
 ## Use RVM
 require "capistrano/rvm"
 
-#require "capistrano/secrets_yml"
+require "capistrano/secrets_yml"
 
 require "capistrano/rails/migrations"
 
