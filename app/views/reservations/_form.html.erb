@@ -1,6 +1,6 @@
 <%= form_with model: @reservation do |form| %>
     <%= form.label :camper_id, "Select Camper" %><br>
-    <%= form.collection_select :camper_id, Camper.order(:last_name), :id, :last_name %>
+    <%= form.collection_select :camper_id, Camper.order(:last_name), :id, :full_name %>
     <br>
     <%= form.label :lot_id, "Select Lot" %><br>
     <%= form.collection_select :lot_id, Lot.order(:name), :id, :name %>
