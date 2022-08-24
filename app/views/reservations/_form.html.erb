@@ -6,7 +6,7 @@
     <%= form.collection_select :lot_id, Lot.order(:id), :id, :name %>
     <br>
     <%= form.label :discount_id, "Select Discount" %><br>
-    <%= form.collection_select :discount_id, Discount.order(:name), :id, :name %>
+    <%= form.collection_select :discount_id, Discount.order(:id), :id, :name %>
     <br>
     <%= form.label :fair_year, "Fair Year" %><br>
     <%= form.date_field :fair_year %><br>
