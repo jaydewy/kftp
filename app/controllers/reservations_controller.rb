@@ -35,6 +35,8 @@ class ReservationsController < ApplicationController
 
   def update
     @reservation = Reservation.find(params[:id])
+    @reservation.set_total
+    @reservation.set_all_extras
 
     if @reservation.update(reservation_params)
       # calculate and update the total lot fee
