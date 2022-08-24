@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
   
   def index
-    @reservations = Reservation.all
+    @reservations = Reservation.order(:lot_id)
   end
 
   def list
