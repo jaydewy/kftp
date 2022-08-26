@@ -13,7 +13,15 @@
  *= require_tree .
  *= require_self
  */
+   
+body {
+   font-family: helvetica, sans-serif;
+   background-color: #659165;
+}
+
  @media screen {
+   
+
    .content {
       display: grid;
       grid-template-areas: 
@@ -24,20 +32,31 @@
       grid-template-columns: 150px auto auto auto auto;
    }
   
+   .logo-header, .header {
+      background-color: #092f0a;
+      color: #ffffff;
+   }
+
    .logo-header {
       grid-area: logo;
+      
    }
   
    .header {
       grid-area: header;
+      
    }
   
    .sidebar {
       grid-area: sidebar;
+      background-color: #659165;
+      text-align: center;
    }
   
    .main {
       grid-area: main;
+      background-color: #ffffff;
+      padding: 10px;
    }
  }
 
@@ -49,6 +68,10 @@
 
  /* Style for printing invoices / lot sheets */
  @media print {
+   .header, .sidebar, .logo-header, .noprint {
+      display: none;
+   }
+
    .main {
       display: grid;
       grid-template-areas: 
@@ -57,10 +80,6 @@
         'camperinfo resinfo'
         'feeinfo feeinfo'
         'paymentinfo paymentinfo';
-   }
-
-   .header, .sidebar, .logo-header, .noprint {
-      display: none;
    }
 
    h1 {
