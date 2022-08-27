@@ -3,8 +3,8 @@ class Reservation < ApplicationRecord
     belongs_to :discount, optional: true
     belongs_to :group, optional: true
     belongs_to :camper
-    has_many :payments
-    has_many :extra_charges
+    has_many :payments, dependent: :delete_all
+    has_many :extra_charges, dependent: :delete_all
     has_many :extras, through: :extra_charges
     accepts_nested_attributes_for :extra_charges
 
