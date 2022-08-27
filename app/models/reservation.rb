@@ -28,7 +28,9 @@ class Reservation < ApplicationRecord
 
     def set_total
         lot_fee = self.lot.lot_fee
-        if self.discount.percentage?
+        if self.discount.nil?
+            self.total = lot_fee
+        elsif self.discount.percentage?
             self.total = lot_fee * (1 - self.discount.discount_percent)
         else
             self.total = lot_fee - self.discount.amount
