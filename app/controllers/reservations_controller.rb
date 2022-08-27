@@ -50,6 +50,10 @@ class ReservationsController < ApplicationController
   def destroy
     # leave for now
     # want to archive any deleted reservation?
+    @reservation = Reservation.find(params[:id])
+
+    @reservation.destroy
+    redirect_to reservations_path, status: :see_other
   end
 
   def check_in
