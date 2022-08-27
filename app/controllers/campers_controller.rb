@@ -1,7 +1,7 @@
 class CampersController < ApplicationController
 
     def index
-        @campers = Camper.all
+        @campers = Camper.order(:last_name)
     end
 
     def new
