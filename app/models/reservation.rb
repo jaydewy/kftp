@@ -48,7 +48,7 @@ class Reservation < ApplicationRecord
 
     def set_all_extras
         exts = Extra.all
-        self.extras << exts
+        self.extras = exts
     end
 
     def get_extra_charges_total
