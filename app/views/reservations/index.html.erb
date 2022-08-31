@@ -25,7 +25,11 @@
                 <td><%= reservation.lot.name %></td>
                 <td><%= link_to reservation.camper.last_name + ', ' + reservation.camper.first_name, reservation %></td>
                 <td>$<%= reservation.due %> </td>
-                <td><%= link_to "Check In", check_in_reservation_path(reservation) %></td>
+                <% if reservation.checked_in %>
+                    <td><%= link_to "Undo Check In", check_out_reservation_path(reservation) %></td>
+                <% else %>
+                    <td><%= link_to "Check In", check_in_reservation_path(reservation) %></td>
+                <% end %>
                 <td><%= link_to "Edit", edit_reservation_path(reservation) %></td>
                 <td><%= link_to "Delete", reservation_path(reservation), data: {
                     turbo_method: :delete,
