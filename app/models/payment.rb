@@ -13,6 +13,20 @@ class Payment < ApplicationRecord
     end
 
     def self.get_payments_by_date(dt)
-        @payments = Payment.where("created_at BETWEEN ? AND ?", dt.beginning_of_day, dt.end_of_day)
+        payments = Payment.where("created_at BETWEEN ? AND ?", dt.beginning_of_day, dt.end_of_day)
+        return payments
+    end
+
+    def self.get_payment_totals_by_date(dt)
+         
+    end
+
+    def self.get_payment_totals
+        # temporary fn. Get all payments for all reservations, by PaymentMethod
+        payments = Payment.all
+
+        payments.each_with_object(Hash.new(0)) do |p, totals|
+            totals[p.payment_method] += p.amount
+        end
     end
 end

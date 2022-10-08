@@ -25,5 +25,6 @@ Rails.application.routes.draw do
     
   end
 
+  get 'reports/totals', to: 'reports#totals'
   
 end

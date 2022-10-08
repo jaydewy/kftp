@@ -17,4 +17,14 @@ class ExtraCharge < ApplicationRecord
         end
         return total
     end
+
+    def self.get_extra_totals
+        # temporary fn. Get all extra charges by Extra
+        extra_charges_all = ExtraCharge.all
+
+        extra_charges_all.each_with_object(Hash.new(0)) do |ec, totals|
+            totals[ec.extra] += ec.charge
+        end
+        
+    end
 end

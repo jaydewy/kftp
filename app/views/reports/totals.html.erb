@@ -1,0 +1,33 @@
+<h1>Reports#Totals</h1>
+
+<h2>Payments Summary</h2>
+<table>
+    <% total = 0 %>
+    <% @payment_methods.each do |pm| %>
+        <tr>
+            <td><%= pm.name %></td>
+            <td>$<%= @totals_hash[pm] %></td>
+        </tr>
+        <% total += @totals_hash[pm] %>
+    <% end %>
+    <tr>
+        <td>Total</td>
+        <td>$<%= total %></td>
+    </tr>
+</table>
+
+<h2>Charges Summary</h2>
+<table>
+    <% ex_total = 0 %>
+    <% @extras.each do |ex| %>
+        <tr>
+            <td><%= ex.name %></td>
+            <td>$<%= @extra_totals_hash[ex] %></td>
+        </tr>
+        <% ex_total += @extra_totals_hash[ex] %>
+    <% end %>
+    <tr>
+        <td>Total</td>
+        <td>$<%= ex_total %></td>
+    </tr>
+</table>
