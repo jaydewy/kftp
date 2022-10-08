@@ -9,8 +9,8 @@ class Reservation < ApplicationRecord
     accepts_nested_attributes_for :extra_charges
 
     # to-do list
-    #   still need code to check for conflicts with lots
-    #   check in all reservations for a group/camper
+    #   still need code to check for conflicts with lots per event
+    #   check in/out all reservations for a group/camper
 
     def check_in
         # marks the reservation as checked in
@@ -20,7 +20,7 @@ class Reservation < ApplicationRecord
     end
 
     def check_out
-        # this is only to "undo" a check-in. We don't need to records check-out times for our park
+        # this is only to "undo" a check-in. We don't need to record check-out times for our park
         # add validations
         self.checked_in = false
         self.checked_in_time = nil
@@ -47,7 +47,7 @@ class Reservation < ApplicationRecord
     end
 
     def set_all_extras
-        exts = Extra.all
+        exts = Extra.all # change to active extras only
         self.extras = exts
     end
 
@@ -58,5 +58,13 @@ class Reservation < ApplicationRecord
     def self.find_by_last_name(ln)
         reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
         #reservations = Reservation.where("last_name LIKE ?", Reservation.sanitize_sql_like(ln))
+    end
+
+    def self.get_total_fees
+        reservations = Reservation.where("checked_in = true")
+        fee_total = 0
+        reservations.each do |res|
+            fee_total += res.total
+        end
     end
 end
