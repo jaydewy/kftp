@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'events/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -24,5 +25,8 @@ Rails.application.routes.draw do
   # Define routes for all available reports
   get 'reports', to: 'reports#index'
   get 'reports/totals', to: 'reports#totals'
+
+  # Define all routes related to events
+  resources :events
   
 end

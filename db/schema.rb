@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_03_211048) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_150527) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -33,6 +33,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_211048) do
     t.string "name", limit: 32, default: "", null: false
     t.decimal "discount_percent", precision: 5, scale: 2, default: "0.0"
     t.decimal "amount", precision: 8, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", limit: 30
+    t.date "start_date"
+    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -105,7 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_211048) do
   end
 
   create_table "reservations", charset: "utf8mb4", force: :cascade do |t|
-    t.date "fair_year", null: false
+    t.date "fair_year"
     t.decimal "deposit", precision: 8, scale: 2, default: "0.0"
     t.decimal "override_total", precision: 8, scale: 2, default: "0.0"
     t.text "special_request"
