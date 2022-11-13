@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_214139) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_215136) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -64,6 +64,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_214139) do
     t.datetime "updated_at", null: false
     t.bigint "event_id"
     t.index ["event_id"], name: "index_extras_on_event_id"
+  end
+
+  create_table "fees", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.decimal "amount", precision: 10, scale: 2
+    t.bigint "event_id", null: false
+    t.bigint "site_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_fees_on_event_id"
+    t.index ["site_type_id"], name: "index_fees_on_site_type_id"
   end
 
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
