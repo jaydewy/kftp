@@ -24,7 +24,7 @@
             <tr>
                 <td><%= reservation.lot.name %></td>
                 <td><%= link_to reservation.camper.last_name + ', ' + reservation.camper.first_name, reservation %></td>
-                <td>$<%= reservation.due %> </td>
+                <td><%= number_to_currency(reservation.due) %> </td>
                 <% if reservation.checked_in %>
                     <td><%= link_to "Undo Check In", check_out_reservation_path(reservation) %></td>
                 <% else %>

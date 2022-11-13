@@ -6,11 +6,7 @@ Rails.application.routes.draw do
 
   resources :campers
 
-  resources :lots do
-    member do
-      get 'list'
-    end
-  end
+  resources :lots
   
   resources :reservations do
     resources :payments
@@ -25,6 +21,8 @@ Rails.application.routes.draw do
     
   end
 
+  # Define routes for all available reports
+  get 'reports', to: 'reports#index'
   get 'reports/totals', to: 'reports#totals'
   
 end

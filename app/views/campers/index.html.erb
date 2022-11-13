@@ -1,7 +1,27 @@
 <h1>Campers</h1>
-<% @campers.each do |camper| %>
-    <li>
-        <ul><%= link_to camper.last_name + ", " + camper.first_name, camper %></ul>
-    </li>
-<% end %>
-<%= link_to "New Camper", new_camper_path %>
+
+<%= link_to "New Camper", new_camper_path %><br>
+
+<table>
+    <thead>
+        <tr>
+            <th>Camper Name</th>
+            <th>City</th>
+            <th>Phone Number</th>
+            <th>Email Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @campers.each do |camper| %>
+            <tr>
+                <td><%= link_to camper.last_name + ", " + camper.first_name, camper %></td>
+                <td><%= camper.city %></td>
+                <td><%= camper.phone %></td>
+                <td><%= camper.email %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+
+

@@ -1,0 +1,25 @@
+<%= form_with model: @lot do |f| %>
+    <%= f.label :site_type_id, "Lot Type" %><br>
+    <%= f.collection_select :site_type_id, @site_types, :id, :name  %><br>
+
+    <%= f.label :rate_id, "Rate" %><br>
+    <%= f.collection_select :rate_id, @rates, :id, :name %><br>
+
+    <%= f.label :name, "Lot Name" %><br>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :length, "Length" %><br>
+    <%= f.number_field :length %><br>
+
+    <%= f.label :width, "Width" %><br>
+    <%= f.number_field :width %><br>
+
+    <%= f.label :special_condition, "Lot Notes" %><br>
+    <%= f.text_field :special_condition %><br>
+
+    <%= f.label :unavailable, "Lot Unavailable?" %><br>
+    <%= f.check_box :unavailable %><br>
+
+    <%= f.submit "Save Lot" %>
+
+<% end %>

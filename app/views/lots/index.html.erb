@@ -1,23 +1,30 @@
 <h1>Lot List</h1>
+<% # %>
+
+<%= link_to "Create New Lot", new_lot_path %><br>
 
     <table>
-        <th>
-            <td>Lot Number</td>
-            <td>Length</td>
-            <td>Width</td>
-            <td>Notes</td>
-            <td>Type</td>
-            <td>Price</td>
-        </th>
-        <% @lots.each do |lot| %>
+        <thead>
             <tr>
-                <td><%= link_to lot.name, lot %></td>
-                <td><%= lot.length %></td>
-                <td><%= lot.width %></td>
-                <td><%= lot.special_condition %></td>
-                <td><%= lot.site_type.name %></td>
-                <td><%= lot.rate.name %></td>
-            </tr>
-        <% end %>
+                <th>Lot Number</th>
+                <th>Width</th>
+                <th>Length</th>
+                <th>Notes</th>
+                <th>Type</th>
+                <th>Price</th>
+            </tr>    
+        </thead>
+        <tbody>
+            <% @lots.each do |lot| %>
+                <tr>
+                    <td><%= link_to lot.name, edit_lot_path(lot) %></td>
+                    <td><%= lot.width %>'</td>
+                    <td><%= lot.length %>'</td>
+                    <td><%= lot.special_condition %></td>
+                    <td><%= lot.site_type.name %></td>
+                    <td><%= lot.rate.name %></td>
+                </tr>
+            <% end %>    
+        </tbody>
     </table>
 

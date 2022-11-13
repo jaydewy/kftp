@@ -6,13 +6,13 @@
     <% @payment_methods.each do |pm| %>
         <tr>
             <td><%= pm.name %></td>
-            <td>$<%= @totals_hash[pm] %></td>
+            <td><%= number_to_currency(@totals_hash[pm]) %></td>
         </tr>
         <% total += @totals_hash[pm] %>
     <% end %>
     <tr>
         <td>Total</td>
-        <td>$<%= total %></td>
+        <td><%= number_to_currency(total) %></td>
     </tr>
 </table>
 
@@ -22,12 +22,12 @@
     <% @extras.each do |ex| %>
         <tr>
             <td><%= ex.name %></td>
-            <td>$<%= @extra_totals_hash[ex] %></td>
+            <td><%= number_to_currency(@extra_totals_hash[ex]) %></td>
         </tr>
         <% ex_total += @extra_totals_hash[ex] %>
     <% end %>
     <tr>
         <td>Total</td>
-        <td>$<%= ex_total %></td>
+        <td><%= number_to_currency(ex_total) %></td>
     </tr>
 </table>
