@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_150527) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_214139) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -62,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_150527) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_extras_on_event_id"
   end
 
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
@@ -147,8 +149,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_150527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "non_renewable", default: false
+    t.bigint "event_id"
     t.index ["camper_id"], name: "index_reservations_on_camper_id"
     t.index ["discount_id"], name: "index_reservations_on_discount_id"
+    t.index ["event_id"], name: "index_reservations_on_event_id"
     t.index ["group_id"], name: "index_reservations_on_group_id"
     t.index ["lot_id"], name: "index_reservations_on_lot_id"
   end
