@@ -21,7 +21,9 @@ class LotsController < ApplicationController
   end
 
   def show
-    # unused for now - always return to index page
+    @lot = Lot.find(params[:id])
+
+    render :edit
   end
 
   def edit
