@@ -1,21 +1,44 @@
 class LotsController < ApplicationController
   def index
-    @lots = Lot.all
+    @lots = Lot.order(:name)
   end
 
   def new
+    @lot = Lot.new
+    # also provide SiteTypes and Rates to build the Lot
+    @site_types = SiteType.order(:name)
+    @rates = Rate.order(:name)
   end
 
   def create
+    @lot = Lot.new(lot_params)
+
+    if @lot.save!
+      redirect_to lots_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
+    # unused for now - always return to index page
   end
 
   def edit
+    @lot = Lot.find(params[:id])
+    # also provide SiteTypes and Rates to build the Lot
+    @site_types = SiteType.order(:name)
+    @rates = Rate.order(:name)
   end
 
   def update
+    @lot = Lot.find(params[:id])
+
+    if @lot.update(lot_params)
+      redirect_to lots_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -23,6 +46,12 @@ class LotsController < ApplicationController
 
   def open
     # use to create list of all unoccupied, active lots
+  end
+
+  private
+
+  def lot_params
+    params.require(:lot).permit(:name, :length, :width, :special_condition, :unavailable, :site_type_id, :rate_id)
   end
   
 end

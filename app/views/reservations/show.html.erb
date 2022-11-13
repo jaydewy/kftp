@@ -61,7 +61,7 @@
                 <tr>
                     <td>Lot Fee:</td>
                     <td></td>
-                    <td>$<%= @reservation.total %></td>
+                    <td><%= number_to_currency(@reservation.total) %></td>
                 </tr>
                 <tr>
                     <td>Admissions:</td>
@@ -69,19 +69,19 @@
                 <% @reservation.extra_charges.each do |exch| %>
                     <tr>
                         <td><%= exch.extra.name %>:</td>
-                        <td>$<%= exch.extra.charge %>x<%= exch.number %></td>
-                        <td>$<%= exch.charge %></td>
+                        <td><%= number_to_currency(exch.extra.charge) %>x<%= exch.number %></td>
+                        <td><%= number_to_currency(exch.charge) %></td>
                     </tr>
                 <% end %>
                 <tr>
                     <td></td>
                     <td> Admissions Subtotal</td>
-                    <td>$<%= @reservation.get_extra_charges_total %></td>
+                    <td><%= number_to_currency(@reservation.get_extra_charges_total) %></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>TOTAL</td>
-                    <td>$<%= @reservation.total + @reservation.get_extra_charges_total %></td>
+                    <td><%= number_to_currency(@reservation.total + @reservation.get_extra_charges_total) %></td>
                 </tr>
             </tbody>
         </table>
@@ -114,7 +114,7 @@
                 <% @reservation.payments.each do |payment| %>
                     <tr>
                         <td><%= payment.created_at %></td>
-                        <td>$<%= payment.amount %></td>
+                        <td><%= number_to_currency(payment.amount) %></td>
                         <td><%= if payment.payment_method
                                     payment.payment_method.name
                                 else
@@ -124,7 +124,7 @@
                 <% end %>
                 <tr>
                     <td>Total: </td>
-                    <td>$<%= @reservation.get_payments_total %>
+                    <td><%= number_to_currency(@reservation.get_payments_total) %>
                 </tr>
             </tbody>
         </table>
