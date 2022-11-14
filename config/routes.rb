@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :campers
   resources :lots
   resources :site_types
+  resources :extras
   
   resources :reservations do
     resources :payments
