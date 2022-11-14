@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  get 'events/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   root "reservations#index"
 
   resources :campers
-
   resources :lots
+  resources :site_types
   
   resources :reservations do
     resources :payments

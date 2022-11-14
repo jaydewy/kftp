@@ -1,0 +1,21 @@
+<h1>Site Type Index</h1>
+<p>Find me in app/views/site_types/index.html.erb</p>
+<p><%= link_to "Create New Lot Type", new_site_type_path %> </p>
+<table>
+    <thead>
+        <tr>
+            <th>Site Type</th>
+            <th>Total Lots</th>
+            <th>Reserved Space</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @site_types.each do |st| %>
+            <tr>
+                <td><%= link_to st.name, st %></td>
+                <td><%=  %></td>
+                <td><%=  %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -1,0 +1,7 @@
+<%= form_with model: @site_type do |f| %>
+    <%= f.label :name, "Site Type Name" %><br>
+    <%= f.text_field :name %><br>
+
+    <%= f.submit "Save Site Type" %>
+
+<% end %>
