@@ -48,6 +48,7 @@ class LotsController < ApplicationController
 
   def open
     # use to create list of all unoccupied, active lots
+    # this should go in the model
   end
 
   private

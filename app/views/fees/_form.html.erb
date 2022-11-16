@@ -1,0 +1,29 @@
+<%= form_with(model: fee) do |f| %>
+  <% if fee.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(fee.errors.count, "error") %> prohibited this fee from being saved:</h2>
+
+      <ul>
+        <% fee.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "Fee Name" %><br>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :amount, "Amount" %><br>
+    <%= f.number_field :amount %><br>
+
+    <%= f.label :event_id, "Event" %><br>
+    <%= f.collection_select :event_id, @events, :id, :name %><br>
+
+    <%= f.label :site_type_id, "Site Type" %><br>
+    <%= f.collection_select :site_type_id, @sitetypes, :id, :name %><br>
+
+    <%= f.submit "Save Fee" %>
+  </div>
+<% end %>

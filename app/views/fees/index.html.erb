@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Fees</h1>
+
+<div id="fees">
+  <table>
+    <thead>
+      <tr>
+        <th>Fee Name</th>
+        <th>Fee Amount</th>
+        <th>Assoc. Event</th>
+        <th>Assoc. Site Type</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @fees.each do |fee| %>
+        <tr>
+          <td><%= link_to fee.name, fee %></td>
+          <td><%= number_to_currency(fee.amount) %></td>
+          <td><%= fee.event.name %></td>
+          <td><%= fee.site_type.name %></td>
+          <td><%= link_to "Delete Fee", fee_path(fee), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure you want to delete this fee?"
+          } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to "New fee", new_fee_path %>
