@@ -28,7 +28,7 @@ class FeesController < ApplicationController
 
     respond_to do |format|
       if @fee.save
-        format.html { redirect_to fee_url(@fee), notice: "Fee was successfully created." }
+        format.html { redirect_to fees_path, notice: "Fee was successfully created." }
         format.json { render :show, status: :created, location: @fee }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class FeesController < ApplicationController
   def update
     respond_to do |format|
       if @fee.update(fee_params)
-        format.html { redirect_to fee_url(@fee), notice: "Fee was successfully updated." }
+        format.html { redirect_to fees_path, notice: "Fee was successfully updated." }
         format.json { render :show, status: :ok, location: @fee }
       else
         format.html { render :edit, status: :unprocessable_entity }
