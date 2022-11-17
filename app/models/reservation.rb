@@ -7,6 +7,7 @@ class Reservation < ApplicationRecord
     has_many :payments, dependent: :delete_all
     has_many :extra_charges, dependent: :delete_all
     has_many :extras, through: :extra_charges
+    has_one :site_type, through: :lot
     accepts_nested_attributes_for :extra_charges
 
     # to-do list
@@ -28,14 +29,25 @@ class Reservation < ApplicationRecord
     end
 
     def set_total
-        lot_fee = self.lot.lot_fee
-        if self.discount.nil?
-            self.total = lot_fee
-        elsif self.discount.percentage?
-            self.total = lot_fee * (1 - self.discount.discount_percent)
+        # add checks here in case Fee is not found
+        lot_fees = self.site_type.fees
+        lot_fee = lot_fees.find_by(event_id: self.event_id).amount
+            
+        if self.discount.is_percent
+            self.total = lot_fee * (1 - self.discount.amount)
         else
             self.total = lot_fee - self.discount.amount
         end
+
+        #self.total = 150
+        # lot_fee = self.lot.lot_fee
+        # if self.discount.nil?
+        #     self.total = lot_fee
+        # elsif self.discount.percentage?
+        #     self.total = lot_fee * (1 - self.discount.discount_percent)
+        # else
+        #     self.total = lot_fee - self.discount.amount
+        # end
     end
 
     def get_payments_total

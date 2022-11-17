@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_215136) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_17_014341) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -31,10 +31,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_215136) do
 
   create_table "discounts", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
-    t.decimal "discount_percent", precision: 5, scale: 2, default: "0.0"
     t.decimal "amount", precision: 8, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_percent", default: true, null: false
+    t.boolean "lot_fee_only", default: false, null: false
   end
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|

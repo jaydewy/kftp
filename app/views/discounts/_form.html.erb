@@ -1,0 +1,29 @@
+<%= form_with(model: discount) do |f| %>
+  <% if discount.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(discount.errors.count, "error") %> prohibited this discount from being saved:</h2>
+
+      <ul>
+        <% discount.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "Discount Name" %><br>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :amount, "Discount Amount/Percentage" %><br>
+    <%= f.number_field :amount, step: 0.01 %><br>
+
+    <%= f.label :is_percent, "Percentage Discount" %><br>
+    <%= f.check_box :is_percent %><br>
+
+    <%= f.label :lot_fee_only, "Discount only applies to lot fee" %><br>
+    <%= f.check_box :lot_fee_only %><br>
+
+    <%= f.submit "Save Discount" %>
+  </div>
+<% end %>
