@@ -1,5 +1,5 @@
 <h1>Kinmount Fair Trailer Park - 2022</h1>
-
+<p style="color: green" class="noprint"><%= notice %></p>
 
     <div class="tp_info printonly">
         P.O. BOX 238<br>
@@ -40,9 +40,14 @@
     <div class="checkin_info">
         <span class="noprint">Checked In: 
         <%= @reservation.checked_in %></span><br>
-        Check In Date: 
-        <%= @reservation.checked_in_time %><br>
-        <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %></span><br>
+        <span class="noprint">
+            <% if @reservation.checked_in %>
+                Check In Date: <%= @reservation.checked_in_time %><br>
+                <%= link_to "Undo Check In", check_out_reservation_path(@reservation) %>
+            <% else %>
+                <%= link_to "Check In", check_in_reservation_path(@reservation) %>
+            <% end %>
+        </span><br>
         Lot: 
         <%= @reservation.lot.name %><br>
     </div>

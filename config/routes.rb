@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :discounts
-  resources :fees
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -10,6 +8,8 @@ Rails.application.routes.draw do
   resources :lots
   resources :site_types
   resources :extras
+  resources :discounts
+  resources :fees
   
   resources :reservations do
     resources :payments

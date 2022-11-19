@@ -11,14 +11,14 @@ class Reservation < ApplicationRecord
     accepts_nested_attributes_for :extra_charges
 
     # to-do list
-    #   still need code to check for conflicts with lots per event
+    #   still need code to check for conflicts with lots per event - validator
     #   check in/out all reservations for a group/camper
 
     def check_in
         # marks the reservation as checked in
         # add validations
         self.checked_in = true
-        self.checked_in_time = Time.current # fix to use local timezone
+        self.checked_in_time = Time.current
     end
 
     def check_out
@@ -31,6 +31,7 @@ class Reservation < ApplicationRecord
     def set_total
         # add checks here in case Fee is not found
         lot_fees = self.site_type.fees
+        # find the Fee applicable to the reservation's Event
         lot_fee = lot_fees.find_by(event_id: self.event_id).amount
             
         if self.discount.is_percent
@@ -39,7 +40,7 @@ class Reservation < ApplicationRecord
             self.total = lot_fee - self.discount.amount
         end
 
-        #self.total = 150
+        # old implementation
         # lot_fee = self.lot.lot_fee
         # if self.discount.nil?
         #     self.total = lot_fee
@@ -60,7 +61,7 @@ class Reservation < ApplicationRecord
     end
 
     def set_all_extras
-        exts = Extra.all # change to active extras only
+        exts = Extra.all # change to extras for res event only
         self.extras = exts
     end
 

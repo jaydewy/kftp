@@ -1,11 +1,9 @@
 class ReservationsController < ApplicationController
-  
+  before_action :set_reservation, only: %i[ show edit update destroy check_in check_out ]
+  before_action :set_associations, only: %i[ new create edit update ]
+
   def index
     @reservations = Reservation.order(:lot_id)
-  end
-
-  def list
-    @reservations = Reservation.all
   end
 
   def new
@@ -18,56 +16,72 @@ class ReservationsController < ApplicationController
     @reservation.set_total
     @reservation.set_all_extras
 
-    if @reservation.save!
-      redirect_to @reservation
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @reservation.save
+        format.html { redirect_to @reservation, notice: "Reservation was successfully created." }
+        format.json { render :show, status: :created, location: @reservation }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def show
-    @reservation = Reservation.find(params[:id])
   end
 
   def edit
-    @reservation = Reservation.find(params[:id])
   end
 
   def update
-    @reservation = Reservation.find(params[:id])
-    @reservation.set_total
-    @reservation.set_all_extras
+    # if @reservation.update(reservation_params)
+    #   @reservation.set_total
+    #   @reservation.set_all_extras
+    #   if @reservation.save
+    #     redirect_to @reservation
+    #   else
+    #     render :edit, status: :unprocessable_entity
+    #   end
+    # else
+    #   render :edit, status: :unprocessable_entity
+    # end
 
-    if @reservation.update(reservation_params)
-      # calculate and update the total lot fee
-      @reservation.set_total
-      redirect_to @reservation
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @reservation.update(reservation_params)
+        @reservation.set_total
+        @reservation.set_all_extras
+        if @reservation.save
+          format.html { redirect_to @reservation, notice: "Reservation was successfully updated." }
+          format.json { render :show, status: :ok, location: @reservation }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @reservation.errors, status: :unprocessable_entity }  
+        end
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     # leave for now
-    # want to archive any deleted reservation?
-    @reservation = Reservation.find(params[:id])
+    # want to archive any deleted reservation & payments - use callbacks in the model
 
     @reservation.destroy
     redirect_to reservations_path, status: :see_other
   end
 
   def check_in
-    @reservation = Reservation.find(params[:id])
     @reservation.check_in
-    @reservation.save!
+    @reservation.save
     redirect_to @reservation
   end
 
   def check_out
     # only intended to "undo" a check-in
-    @reservation = Reservation.find(params[:id])
     @reservation.check_out
-    @reservation.save!
+    @reservation.save
     redirect_to @reservation
   end
 
@@ -85,6 +99,17 @@ class ReservationsController < ApplicationController
   end
 
   private
+
+    def set_reservation
+      @reservation = Reservation.find(params[:id])
+    end
+
+    def set_associations
+      @events = Event.order(:name)
+      @campers = Camper.order(:last_name)
+      @lots = Lot.order(:id)
+      @discounts = Discount.order(:name)
+    end
 
     def reservation_params
       params.require(:reservation).permit(:fair_year, :deposit, :override_total, :special_request, :slides, :length, :vehicle_license, :vehicle_province, :vehicle_license_2, :vehicle_province_2, :checked_in, :adults, :pets, :kids, :total, :confirmed, :ext_charges, :tax_str, :tax_amount, :log, :onetime_discount, :archived, :cancelled, :checked_in_time, :lot_id, :discount_id, :group_id, :camper_id, :non_renewable, :event_id, extra_charges_attributes: [:id, :extra_id, :number, :charge])
