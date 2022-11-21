@@ -13,7 +13,7 @@
         <% @site_types.each do |st| %>
             <tr>
                 <td><%= link_to st.name, st %></td>
-                <td><%=  %></td>
+                <td><%= st.lots.count %></td>
                 <td><%=  %></td>
             </tr>
         <% end %>
