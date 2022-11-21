@@ -1,4 +1,6 @@
 <h1>Lot List</h1>
+
+<p style="color: green"><%= notice %></p>
 <% # %>
 
 <%= link_to "Create New Lot", new_lot_path %><br>
@@ -11,7 +13,7 @@
                 <th>Length</th>
                 <th>Notes</th>
                 <th>Type</th>
-                <th>Price</th>
+                <th>Fee for Active Event</th>
             </tr>    
         </thead>
         <tbody>
@@ -22,7 +24,7 @@
                     <td><%= lot.length %>'</td>
                     <td><%= lot.special_condition %></td>
                     <td><%= lot.site_type.name %></td>
-                    <td><%= lot.rate.name %></td>
+                    <td></td>
                 </tr>
             <% end %>    
         </tbody>

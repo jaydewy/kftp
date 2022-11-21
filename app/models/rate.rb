@@ -1,3 +1,4 @@
 class Rate < ApplicationRecord
-    has_many :lots
+    # This model is deprecated
+#    has_many :lots
 end

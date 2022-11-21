@@ -67,9 +67,12 @@ class ReservationsController < ApplicationController
   def destroy
     # leave for now
     # want to archive any deleted reservation & payments - use callbacks in the model
-
     @reservation.destroy
-    redirect_to reservations_path, status: :see_other
+
+    respond_to do |format|
+      format.html { redirect_to reservations_url, notice: "Reservation was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   def check_in
