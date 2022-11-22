@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_17_014341) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_030632) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_014341) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: false, null: false
   end
 
   create_table "extra_charges", charset: "utf8mb4", force: :cascade do |t|
