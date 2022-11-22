@@ -3,7 +3,8 @@ class ReservationsController < ApplicationController
   before_action :set_associations, only: %i[ new create edit update ]
 
   def index
-    @reservations = Reservation.order(:lot_id)
+    @reservations = Reservation.active_reservations
+    @active_event = Event.active_event
   end
 
   def new
@@ -90,9 +91,10 @@ class ReservationsController < ApplicationController
 
   def in_park
     # gets a list of all checked in reservations - i.e. in the park
-    @in_park_reservations = Reservation.where("checked_in = ?", true).order(:lot_id)
+    @in_park_reservations = Reservation.active_reservations.where("checked_in = ?", true).order(:lot_id)
     # this will need to be fixed to use dates or current year
-    @total_reservations = Reservation.all.size
+    @total_reservations = Reservation.active_reservations.count
+    @active_event = Event.active_event
   end
 
   def search

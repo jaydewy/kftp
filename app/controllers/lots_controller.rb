@@ -4,6 +4,7 @@ class LotsController < ApplicationController
 
   def index
     @lots = Lot.order(:name)
+    @active_event = Event.active_event
   end
 
   def new

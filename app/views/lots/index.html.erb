@@ -1,5 +1,7 @@
 <h1>Lot List</h1>
 
+<h2><%= @active_event.name %></h2>
+
 <p style="color: green"><%= notice %></p>
 <% # %>
 
@@ -24,7 +26,7 @@
                     <td><%= lot.length %>'</td>
                     <td><%= lot.special_condition %></td>
                     <td><%= lot.site_type.name %></td>
-                    <td></td>
+                    <td><%= number_to_currency(lot.active_fee.amount) %></td>
                 </tr>
             <% end %>    
         </tbody>

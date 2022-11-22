@@ -7,6 +7,11 @@ class Event < ApplicationRecord
 
     validates :name, :start_date, :end_date, presence: true
 
+    def self.active_event
+        # the before_save callback should ensure that this only ever returns one Event
+        Event.find_by(active: true)
+    end
+
     private
 
     def activating_new_event?

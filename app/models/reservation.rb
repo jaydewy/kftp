@@ -8,6 +8,7 @@ class Reservation < ApplicationRecord
     has_many :extra_charges, dependent: :delete_all
     has_many :extras, through: :extra_charges
     has_one :site_type, through: :lot
+
     accepts_nested_attributes_for :extra_charges
 
     # to-do list
@@ -79,6 +80,16 @@ class Reservation < ApplicationRecord
         fee_total = 0
         reservations.each do |res|
             fee_total += res.total
+        end
+    end
+
+    def self.active_reservations
+        # return all Reservations for the current active Event
+        if ae = Event.active_event
+            ae.reservations.order(:lot_id)
+        else
+            # decide what to return here - error message perhaps, or a notice
+            Reservation.order(:lot_id)
         end
     end
 end
