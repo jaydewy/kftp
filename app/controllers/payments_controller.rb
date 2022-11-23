@@ -1,8 +1,7 @@
 class PaymentsController < ApplicationController
 
 
-  # Need to revisit this controller - probably don't need a PaymentsController
-  #   since they are only made in conjunction with a reservation right now
+  # Need to revisit this controller
   def create
     @reservation = Reservation.find(params[:reservation_id])
     @payment = @reservation.payments.create(payment_params)

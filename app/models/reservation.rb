@@ -14,8 +14,11 @@ class Reservation < ApplicationRecord
     validates_with ReservationValidator
 
     # to-do list
-    #   still need code to check for conflicts with lots per event - validator
+    #   DONE - need code to check for conflicts with lots per event - validator
     #   check in/out all reservations for a group/camper
+    #   renew reservations to a new Event
+    #       prevent non-renewable reservations from being renewed
+    #   
 
     # Instance methods
 
