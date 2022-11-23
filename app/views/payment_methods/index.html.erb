@@ -1,0 +1,27 @@
+<h1>Payment methods</h1>
+
+<p style="color: green"><%= notice %></p>
+
+<p><%= link_to "New payment method", new_payment_method_path %></p>
+
+<div id="payment_methods">
+  <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payment_methods.each do |payment_method| %>
+          <tr>
+            <td><%= link_to payment_method.name, payment_method %></td>
+            <td><%= link_to "Delete Payment Method", payment_method_path(payment_method), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure you want to delete this payment method?"
+          } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>
