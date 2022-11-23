@@ -92,7 +92,6 @@ class ReservationsController < ApplicationController
   def in_park
     # gets a list of all checked in reservations - i.e. in the park
     @in_park_reservations = Reservation.active_reservations.where("checked_in = ?", true).order(:lot_id)
-    # this will need to be fixed to use dates or current year
     @total_reservations = Reservation.active_reservations.count
     @active_event = Event.active_event
   end

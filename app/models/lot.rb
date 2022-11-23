@@ -16,6 +16,8 @@ class Lot < ApplicationRecord
     # end
 
     def active_fee
+        # get the Fee for this lot for the active event
+        #   Add handling for when no Fee is found - maybe direct to create Fee?
         ae = Event.active_event
         self.fees.find_by(event: ae)
     end

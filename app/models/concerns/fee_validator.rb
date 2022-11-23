@@ -1,8 +1,8 @@
 class FeeValidator < ActiveModel::Validator
     def validate(record)
         # need to check that there is not another Fee with the same event_id and site_type_id
-        if fee_is_unique_wrt_event_sitetype(record) > 0
-            record.errors.add(:base)
+        unless fee_is_unique_wrt_event_sitetype(record) == 0
+            record.errors.add(:site_type, :invalid, message: "This SiteType already has a Fee for this Event.")
         end
     end
 

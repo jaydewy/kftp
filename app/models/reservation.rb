@@ -11,9 +11,13 @@ class Reservation < ApplicationRecord
 
     accepts_nested_attributes_for :extra_charges
 
+    validates_with ReservationValidator
+
     # to-do list
     #   still need code to check for conflicts with lots per event - validator
     #   check in/out all reservations for a group/camper
+
+    # Instance methods
 
     def check_in
         # marks the reservation as checked in
@@ -69,6 +73,8 @@ class Reservation < ApplicationRecord
     def get_extra_charges_total
         ext_charges_total = ExtraCharge.subtotal(self.id)
     end
+
+    # Class methods
 
     def self.find_by_last_name(ln)
         reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
