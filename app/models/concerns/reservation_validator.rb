@@ -3,13 +3,13 @@ class ReservationValidator < ActiveModel::Validator
         # Ensure that there is not already another reservation for the same
         #   lot for the same event
         unless reservation_lot_event_unique?(record) == 0
-            record.errors.add(:lot, :reserved, message: "This Lot is already reserved for this event.")
+            record.errors.add(:lot, :reserved, message: "is already reserved for this event.")
         end
     end
 
     private
 
     def reservation_lot_event_unique?(record)
-        Reservation.where(lot: record.lot).where(event: record.event).count
+        Reservation.where(lot: record.lot).where(event: record.event).where.not(id: record.id).count
     end
 end
