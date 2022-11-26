@@ -24,8 +24,7 @@
     <%= form.label :discount_id, "Select Discount" %><br>
     <%= form.collection_select :discount_id, @discounts, :id, :name %>
     <br>
-    <%= form.label :fair_year, "Fair Year" %><br>
-    <%= form.date_field :fair_year %><br>
+
     <%= form.label :slides, "Number of slideouts" %><br>
     <%= form.number_field :slides %><br>
     <%= form.label :length, "Trailer Length" %><br>

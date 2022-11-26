@@ -1,12 +1,13 @@
 <h1>Site Type Index</h1>
-<p>Find me in app/views/site_types/index.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
 <p><%= link_to "Create New Lot Type", new_site_type_path %> </p>
 <table>
     <thead>
         <tr>
             <th>Site Type</th>
             <th>Total Lots</th>
-            <th>Reserved Space</th>
+            <th>Fee for Active Event</th>
         </tr>
     </thead>
     <tbody>
@@ -14,7 +15,12 @@
             <tr>
                 <td><%= link_to st.name, st %></td>
                 <td><%= st.lots.count %></td>
-                <td><%=  %></td>
+
+                <% if st.active_fee %>
+                    <td><%= number_to_currency(st.active_fee.amount) %></td>
+                <% else %>
+                    <td>No Fee</td>
+                <% end %>
             </tr>
         <% end %>
     </tbody>

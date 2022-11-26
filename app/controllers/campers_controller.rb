@@ -24,31 +24,31 @@ class CampersController < ApplicationController
     end
 
     def show
-        render :edit
+      render :edit
     end
 
     def edit
     end
 
     def update
-        respond_to do |format|
-            if @camper.update(camper_params)
-              format.html { redirect_to params[:previous_request_source], notice: "Camper was successfully updated." }
-              format.json { render :show, status: :ok, location: @camper }
-            else
-              format.html { render :edit, status: :unprocessable_entity }
-              format.json { render json: @camper.errors, status: :unprocessable_entity }
-            end
+      respond_to do |format|
+          if @camper.update(camper_params)
+            format.html { redirect_to params[:previous_request_source], notice: "Camper was successfully updated." }
+            format.json { render :show, status: :ok, location: @camper }
+          else
+            format.html { render :edit, status: :unprocessable_entity }
+            format.json { render json: @camper.errors, status: :unprocessable_entity }
           end
+        end
     end
 
     def destroy
-        @camper.destroy
+      @camper.destroy
 
-        respond_to do |format|
-          format.html { redirect_to campers_path, notice: "Camper was successfully destroyed." }
-          format.json { head :no_content }
-        end
+      respond_to do |format|
+        format.html { redirect_to campers_path, notice: "Camper was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
 
     private
