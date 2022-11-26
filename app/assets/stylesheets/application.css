@@ -67,7 +67,7 @@ body {
  }
 
  /* Style for printing invoices / lot sheets */
- @media print {
+ /* @media print {
    .header, .sidebar, .logo-header, .noprint {
       display: none;
    }
@@ -115,4 +115,4 @@ body {
       width: 100%;
    }
 
- }
+ } */

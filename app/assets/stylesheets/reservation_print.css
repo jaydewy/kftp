@@ -14,7 +14,7 @@
          'paymentinfo paymentinfo';
     }
  
-    h1 {
+    .print_header {
        grid-area: header;
        text-align: center;
     }

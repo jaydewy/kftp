@@ -29,6 +29,7 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    @active_event = Event.active_event
   end
 
   def edit
