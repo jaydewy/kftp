@@ -71,6 +71,8 @@
     <%= form.text_area :addl %>
   </div>
 
+  <%= hidden_field_tag :previous_request_source, request.referer %>
+
   <div>
     <%= form.submit %>
   </div>
