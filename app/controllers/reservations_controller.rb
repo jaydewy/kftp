@@ -1,10 +1,10 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[ show edit update destroy check_in check_out ]
   before_action :set_associations, only: %i[ new create edit update ]
+  before_action :set_event, only: %i[ index show in_park search ]
 
   def index
     @reservations = Reservation.active_reservations
-    @active_event = Event.active_event
   end
 
   def new
@@ -29,7 +29,6 @@ class ReservationsController < ApplicationController
   end
 
   def show
-    @active_event = Event.active_event
   end
 
   def edit
@@ -94,7 +93,6 @@ class ReservationsController < ApplicationController
     # gets a list of all checked in reservations - i.e. in the park
     @in_park_reservations = Reservation.active_reservations.where("checked_in = ?", true).order(:lot_id)
     @total_reservations = Reservation.active_reservations.count
-    @active_event = Event.active_event
   end
 
   def search
@@ -114,6 +112,10 @@ class ReservationsController < ApplicationController
       @campers = Camper.order(:last_name)
       @lots = Lot.order(:id)
       @discounts = Discount.order(:name)
+    end
+
+    def set_event
+      @active_event = Event.active_event
     end
 
     def reservation_params

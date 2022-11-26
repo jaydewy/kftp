@@ -79,11 +79,6 @@ class Reservation < ApplicationRecord
 
     # Class methods
 
-    def self.find_by_last_name(ln)
-        reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
-        #reservations = Reservation.where("last_name LIKE ?", Reservation.sanitize_sql_like(ln))
-    end
-
     def self.get_total_fees
         reservations = Reservation.where("checked_in = true")
         fee_total = 0
@@ -99,6 +94,14 @@ class Reservation < ApplicationRecord
         else
             # decide what to return here - error message perhaps, or a notice
             Reservation.order(:lot_id)
+        end
+    end
+
+    def self.find_by_last_name(ln)
+        if ae = Event.active_event
+            reservations = ae.reservations.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
+        else
+            reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
         end
     end
 end

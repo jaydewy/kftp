@@ -1,3 +1,6 @@
+<% # This page when printed is also the Camper's receipt/invoice for the Lot %>
+<% # Add button to send invoice by email %>
+
 <div class="print_header">
     <h1>Kinmount Fair Trailer Park</h1>
     <h2><%= @active_event.name %></h2>
@@ -20,6 +23,7 @@
         Email: <%= @reservation.camper.email %><br>
         Phone 2: <%= @reservation.camper.phone_2 %><br>
         Email 2: <%= @reservation.camper.email_2 %><br>
+        <span class="noprint"><%= link_to "Edit Camper Information", edit_camper_path(@reservation.camper) %></span>
     </div>
 
     <div class="res_info">
@@ -77,7 +81,7 @@
                 </tr>
                 <tr>
                     <td>Admissions:</td>
-                </tr>@active_event = Event.active_event
+                </tr>
                 <% @reservation.extra_charges.each do |exch| %>
                     <tr>
                         <td><%= exch.extra.name %>:</td>
