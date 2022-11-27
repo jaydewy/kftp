@@ -108,7 +108,7 @@ class ReservationsController < ApplicationController
     end
 
     def set_associations
-      @events = Event.order(:name)
+      @active_event = Event.active_event
       @campers = Camper.order(:last_name)
       @lots = Lot.order(:id)
       @discounts = Discount.order(:name)

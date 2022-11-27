@@ -18,20 +18,20 @@ class Reservation < ApplicationRecord
     #   check in/out all reservations for a group/camper
     #   renew reservations to a new Event
     #       prevent non-renewable reservations from being renewed
-    #   
+    #   archive reservations when being deleted - use callbacks
 
     # Instance methods
 
     def check_in
         # marks the reservation as checked in
-        # add validations
-        self.checked_in = true
-        self.checked_in_time = Time.current
+        unless self.checked_in
+            self.checked_in = true
+            self.checked_in_time = Time.current
+        end
     end
 
     def check_out
         # this is only to "undo" a check-in. We don't need to record check-out times for our park
-        # add validations
         self.checked_in = false
         self.checked_in_time = nil
     end
@@ -63,18 +63,26 @@ class Reservation < ApplicationRecord
         payments_total = Payment.subtotal(self.id)
     end
 
-    def due
-        pmt = Payment.subtotal(self.id)
-        self.total + self.get_extra_charges_total - pmt
-    end
-
     def set_all_extras
-        exts = Extra.all # change to extras for res event only
+        # Sets the extras for this Reservation. Only selects Extras that are attached
+        #   to the same Event as the Reservation. Also sets the ExtraCharges for each
+        #   Extra thru the has_many through: association
+        #   Called when Reservation is created or updated
+        #   Need to also update whenever Extras are created or updated - see the Extra model
+        re = self.event
+        exts = Extra.where(event: re)
         self.extras = exts
     end
 
     def get_extra_charges_total
+        # Determines the total of all ExtraCharges for this Reservation
         ext_charges_total = ExtraCharge.subtotal(self.id)
+    end
+
+    def due
+        # Determines the amount owing on this Reservation
+        pmt = Payment.subtotal(self.id)
+        self.total + self.get_extra_charges_total - pmt
     end
 
     # Class methods

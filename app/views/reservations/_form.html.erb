@@ -11,9 +11,7 @@
     </div>
   <% end %>
 
-    <%= form.label :event_id, "Select Event" %><br>
-    <%= form.collection_select :event_id, @events, :id, :name %>
-    <br>
+    <%= form.hidden_field :event_id, value: @active_event.id %>
 
     <%= form.label :camper_id, "Select Camper" %><br>
     <%= form.collection_select :camper_id, @campers, :id, :full_name %>
