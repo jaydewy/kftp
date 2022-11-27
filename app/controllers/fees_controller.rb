@@ -55,7 +55,7 @@ class FeesController < ApplicationController
     @fee.destroy
 
     respond_to do |format|
-      format.html { redirect_to fees_url, notice: "Fee was successfully destroyed." }
+      format.html { redirect_to fees_url, status: :see_other, notice: "Fee was successfully destroyed." }
       format.json { head :no_content }
     end
   end

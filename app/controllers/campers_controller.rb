@@ -46,7 +46,7 @@ class CampersController < ApplicationController
       @camper.destroy
 
       respond_to do |format|
-        format.html { redirect_to campers_path, notice: "Camper was successfully destroyed." }
+        format.html { redirect_to campers_path, status: :see_other, notice: "Camper was successfully destroyed." }
         format.json { head :no_content }
       end
     end

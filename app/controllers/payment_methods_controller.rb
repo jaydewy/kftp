@@ -53,7 +53,7 @@ class PaymentMethodsController < ApplicationController
     @payment_method.destroy
 
     respond_to do |format|
-      format.html { redirect_to payment_methods_url, notice: "Payment method was successfully destroyed." }
+      format.html { redirect_to payment_methods_url, status: :see_other, notice: "Payment method was successfully destroyed." }
       format.json { head :no_content }
     end
   end

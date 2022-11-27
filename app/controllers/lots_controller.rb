@@ -51,7 +51,7 @@ class LotsController < ApplicationController
     @lot.destroy
 
     respond_to do |format|
-      format.html { redirect_to lots_url, notice: "Lot " + lot_name + " was successfully destroyed." }
+      format.html { redirect_to lots_url, status: :see_other, notice: "Lot " + lot_name + " was successfully destroyed." }
       format.json { head :no_content }
     end
   end

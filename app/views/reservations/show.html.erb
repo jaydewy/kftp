@@ -124,6 +124,7 @@
                     <th>Amount</th>
                     <th>Method</th>
                     <th>Memo</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -136,6 +137,10 @@
                                 else
                                 end  %></td>
                         <td><%= payment.memo %></td>
+                        <td class="noprint"><%= link_to "Delete Payment", reservation_payment_path(@reservation, payment), data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "Are you sure you want to delete this payment?"
+                        } %></td>
                     </tr>
                 <% end %>
                 <tr>
