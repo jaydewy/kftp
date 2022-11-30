@@ -1,4 +1,16 @@
 <%= form_with model: @extra do |f| %>
+      <% if @extra.errors.any? %>
+        <div style="color: red">
+        <h2><%= pluralize(@extra.errors.count, "error") %> prohibited this extra from being saved:</h2>
+
+        <ul>
+            <% @extra.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
     <%= f.label :name, "Extra Name" %><br>
     <%= f.text_field :name %><br>
 

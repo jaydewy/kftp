@@ -1,4 +1,16 @@
 <%= form_with model: @site_type do |f| %>
+      <% if @site_type.errors.any? %>
+        <div style="color: red">
+        <h2><%= pluralize(@site_type.errors.count, "error") %> prohibited this lot type from being saved:</h2>
+
+        <ul>
+            <% @site_type.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
     <%= f.label :name, "Site Type Name" %><br>
     <%= f.text_field :name %><br>
 

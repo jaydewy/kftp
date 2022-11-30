@@ -8,6 +8,7 @@
             <th>Site Type</th>
             <th>Total Lots</th>
             <th>Fee for Active Event</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,10 @@
                 <% else %>
                     <td>No Fee</td>
                 <% end %>
+                <td><%= link_to "Delete Lot Type", site_type_path(st), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure you want to delete this lot type?"
+                } %></td>
             </tr>
         <% end %>
     </tbody>

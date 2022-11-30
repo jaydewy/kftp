@@ -2,6 +2,8 @@ class SiteType < ApplicationRecord
     has_many :lots
     has_many :fees
 
+    validates :name, presence: true
+
     def active_fee
         # get the Fee for this site type for the active event
         #   Add handling for when no Fee is found - maybe direct to create a Fee?
