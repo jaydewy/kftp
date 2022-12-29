@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   # Define routes for all available reports
   get 'reports', to: 'reports#index'
   get 'reports/totals', to: 'reports#totals'
+  get 'reports/event_totals', to: 'reports#event_totals'
+  get 'reports/daily_totals', to: 'reports#daily_totals'
+  get 'reports/event_checkins', to: 'reports#event_checkins'
 
   # Define all routes related to events
   resources :events
