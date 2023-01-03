@@ -50,14 +50,13 @@
     <div class="checkin_info">
         <span class="noprint">Checked In: 
         <%= @reservation.checked_in %></span><br>
-        <span class="noprint">
             <% if @reservation.checked_in %>
                 Check In Date: <%= @reservation.checked_in_time %><br>
-                <%= link_to "Undo Check In", check_out_reservation_path(@reservation) %>
+                <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %></span>
             <% else %>
-                <%= link_to "Check In", check_in_reservation_path(@reservation) %>
+                <span class="noprint"><%= link_to "Check In", check_in_reservation_path(@reservation) %></span>
             <% end %>
-        </span><br>
+        <br>
         Lot: 
         <%= @reservation.lot.name %><br>
     </div>
