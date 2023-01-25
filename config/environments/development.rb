@@ -37,9 +37,21 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.perform_deliveries = true
+
+    # SMTP Configuration - Jan 24 2023
+    config.action_mailer.smtp_settings = {
+      address: 'smtp.dreamhost.com',
+      port: 465,
+      user_name: 'trailerpark@kinmountfair.net',
+      password: 'UqDfvRS6',
+      authentication: :login,
+      ssl: true
+    }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

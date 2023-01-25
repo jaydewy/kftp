@@ -1,0 +1,47 @@
+Reservation Invoice - <%= @reservation.event.name %>
+September 1st, 2nd, and 3rd, 2023
+===============================================================================
+<%= @reservation.updated_at.strftime('%F %T') %> - RES ID# 2023-<%= @reservation.id %>
+
+Name:           <%= @camper.full_name %>
+Address:        <%= @camper.address %>
+City:           <%= @camper.city %>, <%= @camper.province %>
+Postal Code:    <%= @camper.postal_code %>
+Phone Number:   <%= @camper.phone %>
+Email Address:  <%= @camper.email %>
+
+Lot: <%= @reservation.lot.name %>
+
+Lot Fee: <%= number_to_currency @reservation.total %>
+
+<% unless @reservation.payments.empty? %>
+Payments:
+
+-------------------------------------------------------------------------------
+<% @reservation.payments.each do |pmt| %>
+Date:           <%= pmt.created_at.strftime('%F %T') %>
+Amount:         <%= number_to_currency pmt.amount %>
+Method:         <%= if pmt.payment_method
+                        pmt.payment_method.name
+                    else
+                    end  %>
+                00<%= pmt.id %>
+-------------------------------------------------------------------------------
+<% end %>
+HST#123670184
+<% end %>
+
+Keep this invoice for your records.
+This invoice is your reservation confirmation.
+
+
+2023 Trailer Park Dates: Tue Aug 29 - Mon Sep 4
+Visit our website kinmountfair.net for trailer park information
+Please direct trailer park inquires to trailerpark@kinmountfair.net
+For all other inquiries contact info@kinmountfair.net
+
+THANK YOU - Enjoy the Fair!
+
+Kinmount Agricultural Society
+
+HST Included in Total

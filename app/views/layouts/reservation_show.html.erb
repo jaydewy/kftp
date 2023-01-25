@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lot <%= @reservation.lot.name %> </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="content" >
+        <div class="logo-header">
+            Logo here
+        </div>
+
+        <div class="header">
+            <%= link_to "Send Confirmation Invoice", send_confirmation_reservation_path(@reservation), data: {
+                    turbo_method: :post,
+                    turbo_confirm: "Send Reservation Confirmation?"
+                  } %>
+        </div>
+        
+        <%= render :partial => 'layouts/sidebar' %>
+        <div class="res_main">
+            <%= yield %>
+        </div>
+    </div>
+  </body>
+</html>

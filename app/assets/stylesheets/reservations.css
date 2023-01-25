@@ -1,0 +1,95 @@
+/* Styles for printing invoices / lot sheets and displaying reservations */
+@media print {
+    .header, .sidebar, .logo-header, .noprint {
+       display: none;
+    }
+ 
+    .res_main {
+       display: grid;
+       grid-template-areas: 
+         'header header'
+         'tpinfo checkin'
+         'camperinfo resinfo'
+         'feeinfo feeinfo'
+         'paymentinfo paymentinfo';
+    }
+ 
+    .print_header {
+       grid-area: header;
+       text-align: center;
+    }
+ 
+    .tp_info {
+       grid-area: tpinfo;
+    }
+ 
+    .checkin_info {
+       grid-area: checkin;
+    }
+ 
+    .camper_info {
+       grid-area: camperinfo;
+    }
+ 
+    .res_info {
+       grid-area: resinfo;
+    }
+ 
+    .fee_info {
+       grid-area: feeinfo;
+    }
+ 
+    .payment_info {
+       grid-area: paymentinfo;
+    }
+ 
+    table {
+       width: 100%;
+    }
+ 
+  }
+
+@media screen {
+   .res_main {
+      display: grid;
+      grid-template-areas: 
+        'header checkin'
+        'camperinfo resinfo'
+        'feeinfo extraform'
+        'paymentinfo paymentform';
+      background-color: #ffffff;
+   }
+
+   .print_header {
+      grid-area: header;
+      text-align: left;
+   }
+   
+   .checkin_info {
+      grid-area: checkin;
+   }
+   
+   .camper_info {
+      grid-area: camperinfo;
+   }
+   
+   .res_info {
+      grid-area: resinfo;
+   }
+   
+   .fee_info {
+      grid-area: feeinfo;
+   }
+   
+   .payment_info {
+      grid-area: paymentinfo;
+   }
+
+   .payment_form {
+      grid-area: paymentform;
+   }
+
+   .extra_form {
+      grid-area: extraform;
+   }
+}

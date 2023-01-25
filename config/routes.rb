@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     member do
       get 'check_in'
       get 'check_out'
+      post 'send_confirmation'
     end
     collection do
       get 'search'

@@ -1,4 +1,6 @@
 class ReservationsController < ApplicationController
+  layout "reservation_show", only: [:show]
+
   before_action :set_reservation, only: %i[ show edit update destroy check_in check_out ]
   before_action :set_associations, only: %i[ new create edit update ]
   before_action :set_event, only: %i[ index show in_park search ]
@@ -88,6 +90,22 @@ class ReservationsController < ApplicationController
     @reservation.save
     redirect_to @reservation
   end
+
+  # Send a confirmation invoice (only includes the lot fee, not any extras) to the camper's email.
+  def send_confirmation
+    @reservation = Reservation.find(params[:id])
+    CamperMailer.with(reservation: @reservation, camper: @reservation.camper).confirmation_invoice_email.deliver_later
+
+    # should record these in a db table Jan 20
+    # should handle any errors and report back with the notice
+
+    respond_to do |format|
+      format.html { redirect_to @reservation, notice: "Confirmation invoice sent." }
+      format.json { render :show, status: :ok, location: @reservation }
+    end
+  end
+
+  # collection routes
 
   def in_park
     # gets a list of all checked in reservations - i.e. in the park

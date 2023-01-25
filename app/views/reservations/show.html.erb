@@ -4,14 +4,30 @@
 <div class="print_header">
     <h1>Kinmount Fair Trailer Park</h1>
     <h2><%= @active_event.name %></h2>
+    <p style="color: green" class="noprint"><%= notice %></p>
 </div>
-<p style="color: green" class="noprint"><%= notice %></p>
 
     <div class="tp_info printonly">
         P.O. BOX 238<br>
         KINMOUNT, ON, K0M 2A0<br>
         (705)488-2871<br>
         trailerpark@kinmountfair.net
+    </div>
+
+    <div class="checkin_info">
+        <p>
+            <span class="noprint">Checked In: 
+            <%= @reservation.checked_in %></span><br>
+                <% if @reservation.checked_in %>
+                    Check In Date: <%= @reservation.checked_in_time.strftime('%F %T') %><br>
+                    <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %></span>
+                <% else %>
+                    <span class="noprint"><%= link_to "Check In", check_in_reservation_path(@reservation) %></span>
+                <% end %>
+            <br>
+            Lot: 
+            <%= @reservation.lot.name %><br>
+        </p>
     </div>
 
     <div class="camper_info">
@@ -47,22 +63,8 @@
         <span class="noprint"><%= link_to "Edit Reservation Details", edit_reservation_path(@reservation) %></span>
     </div>
 
-    <div class="checkin_info">
-        <span class="noprint">Checked In: 
-        <%= @reservation.checked_in %></span><br>
-            <% if @reservation.checked_in %>
-                Check In Date: <%= @reservation.checked_in_time %><br>
-                <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %></span>
-            <% else %>
-                <span class="noprint"><%= link_to "Check In", check_in_reservation_path(@reservation) %></span>
-            <% end %>
-        <br>
-        Lot: 
-        <%= @reservation.lot.name %><br>
-    </div>
-
     <div class="fee_info">
-        <h2>Payments</h2>
+        <h2>Fee Summary</h2>
         <% # Summary of charges %>
         <% # Add in discount as well %>
         <table>
@@ -102,20 +104,26 @@
         </table>
     </div>
 
-    <div class="noprint">
+    <div class="extra_form noprint">
         <% # Display form to add extras %>
+        <h2>Admission Maintenance</h2>
         <%= form_with model: @reservation do |f| %>
-            <%= f.fields_for :extra_charges do |ec_form| %>
-                <% ext = ec_form.object.extra %>
-                <%= ec_form.label :number, ext.name %>
-                <%= ec_form.number_field :number, in: 0.0..10.0, step: 1.0 %>
-            <% end %>
+            <table>
+                <%= f.fields_for :extra_charges do |ec_form| %>
+                    <% ext = ec_form.object.extra %>
+                    <tr>
+                        <td><%= ec_form.label :number, ext.name %></td>
+                        <td><%= ec_form.number_field :number, in: 0.0..10.0, step: 1.0 %></td>
+                    </tr>
+                <% end %>
+            </table>
             <%= f.submit "Add Admissions" %>
         <% end %>
     </div>
 
     <div class="payment_info">
         <% # Show all payments made %>
+        <h2>Payments</h2>
         <table>
             <thead>
                 <tr>
@@ -129,7 +137,7 @@
             <tbody>
                 <% @reservation.payments.each do |payment| %>
                     <tr>
-                        <td><%= payment.created_at %></td>
+                        <td><%= payment.created_at.strftime('%F %T') %></td>
                         <td><%= number_to_currency(payment.amount) %></td>
                         <td><%= if payment.payment_method
                                     payment.payment_method.name
@@ -154,15 +162,24 @@
         HST#123670184
     </div>
     
-    <div class="noprint">
+    <div class="payment_form noprint">
         <% # New Payment form %>
+        <h2>New Payment</h2>
         <%= form_with model: [ @reservation, @reservation.payments.build ] do |f| %>
-            <%= f.label :amount, "Payment Amount" %>
-            <%= f.number_field :amount %>
-            <%= f.label :payment_method_id, "Method" %>
-            <%= f.collection_select :payment_method_id, PaymentMethod.order(:name), :id, :name %>
-            <%= f.label :memo, "Memo" %>
-            <%= f.text_field :memo %>
+            <table>
+                <tr>
+                    <td><%= f.label :amount, "Payment Amount" %></td>
+                    <td><%= f.number_field :amount %></td>
+                </tr>
+                <tr>
+                    <td><%= f.label :payment_method_id, "Method" %></td>
+                    <td><%= f.collection_select :payment_method_id, PaymentMethod.order(:name), :id, :name %></td>
+                </tr>
+                <tr>
+                    <td><%= f.label :memo, "Memo" %></td>
+                    <td><%= f.text_field :memo %></td>
+                </tr>
+            </table>
             <%= f.submit "Confirm Payment" %>
         <% end %>
     </div>

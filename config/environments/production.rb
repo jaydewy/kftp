@@ -64,6 +64,16 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # SMTP Configuration - Jan 24 2023
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.dreamhost.com',
+    port: 465,
+    user_name: 'trailerpark@kinmountfair.net',
+    password: 'UqDfvRS6',
+    authentication: :login,
+    ssl: true
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

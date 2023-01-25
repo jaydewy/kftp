@@ -1,0 +1,71 @@
+<h3 style="font-family:verdana,sans-serif">Reservation Invoice - <%= @reservation.event.name %></h3>
+<h4 style="font-family:verdana,sans-serif">September 1st, 2nd, and 3rd, 2023</h4>
+
+<p style="font-family:verdana,sans-serif"><%= @reservation.updated_at.strftime('%F %T') %> - RES ID# 2023-<%= @reservation.id %></p>
+<table style="font-family:verdana,sans-serif">
+    <tr>
+        <td>Name:</td> <td><%= @camper.full_name %></td>
+    </tr>
+    <tr>
+        <td>Address:</td><td><%= @camper.address %></td>
+    </tr>
+    <tr>
+        <td>City:</td><td><%= @camper.city %>, <%= @camper.province %></td>
+    </tr>
+    <tr>
+        <td>Postal Code:</td><td><%= @camper.postal_code %></td>
+    </tr>
+    <tr>
+        <td>Phone Number:</td><td><%= @camper.phone %></td>
+    </tr>
+    <tr>
+        <td>Email Address:</td><td><%= @camper.email %></td>
+
+</table>
+<br>
+
+<div style="font-family:verdana,sans-serif">
+<span style="font-weight:bold">Lot: <%= @reservation.lot.name %></span><br>
+<span style="font-weight:bold">Lot Fee: <%= number_to_currency @reservation.total %></span><br><br>
+
+<% unless @reservation.payments.empty? %>
+Payment Record
+</div>
+<br>
+<table style="font-family:verdana,sans-serif" width="640" align="center" border="0">
+    <tr>
+        <th width="200">Date</th>
+        <th width="100">Amount</th>
+        <th>Method</th>
+        <th width="90">PaymentID</th>
+    </tr>
+    <% @reservation.payments.each do |pmt| %>
+    <tr>
+        <td><%= pmt.created_at.strftime('%F %T') %></td>
+        <td align="center"><%= number_to_currency pmt.amount %></td>
+        <td align="center"><%= if pmt.payment_method
+                                    pmt.payment_method.name
+                                else
+                                end  %></td>
+        <td align="center">00<%= pmt.id %></td>
+    </tr>
+    <% end %>
+    <tr>
+        <td>HST#123670184</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<% end %>
+<div style="font-family:verdana,sans-serif">
+    <p>Keep this invoice for your records.</p>
+    <p style="font-weight:bold">This invoice is your reservation confirmation.</p>
+    <p>2023 Trailer Park Dates: Tue Aug 29 - Mon Sep 4<br>
+    Visit our website <a href="https://www.kinmountfair.net/">kinmountfair.net</a> for trailer park information<br>
+    Please direct trailer park inquires to  <a href="mailto:trailerpark@kinmountfair.net">trailerpark@kinmountfair.net</a><br>
+    For all other inquiries contact <a href="mailto:info@kinmountfair.net">info@kinmountfair.net</a></p>
+    <p>THANK YOU - Enjoy the Fair!</p>
+    <p>Kinmount Agricultural Society</p>
+    <p>HST Included in Total</p>
+</div>
