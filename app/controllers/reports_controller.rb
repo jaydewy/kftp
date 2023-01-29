@@ -24,6 +24,13 @@ class ReportsController < ApplicationController
     end
 
     def event_checkins
+        # get all reservations checked in for a given event
+    end
+
+    def email_list
+        # get all (primary) emails from reservations for the active event
+        @active_event = Event.active_event
+        @reservations = @active_event.reservations
         
     end
 end

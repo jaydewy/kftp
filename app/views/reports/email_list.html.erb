@@ -1,0 +1,5 @@
+<h1>Email List for <%= @active_event.name %></h1>
+
+<% @reservations.each do |res| %>
+    <%= res.camper.email %><br>
+<% end %>

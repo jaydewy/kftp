@@ -14,11 +14,12 @@ class Event < ApplicationRecord
         Event.find_by(active: true)
     end
 
+
     private
 
     def activating_new_event?
         # The before_save callback runs before an Event is created or updated.
-        #   This checks if the event being create or updated is being set as active
+        #   This checks if the event being created or updated is being set as active
         self.active
     end
 
