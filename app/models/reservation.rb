@@ -85,6 +85,10 @@ class Reservation < ApplicationRecord
         self.total + self.get_extra_charges_total - pmt
     end
 
+    def camper_email?
+        !self.camper.email.blank?
+    end
+
     # Class methods
 
     def self.get_total_fees

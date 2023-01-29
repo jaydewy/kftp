@@ -30,7 +30,6 @@ class ReportsController < ApplicationController
     def email_list
         # get all (primary) emails from reservations for the active event
         @active_event = Event.active_event
-        @reservations = @active_event.reservations
-        
+        @emails = Camper.email_list        
     end
 end
