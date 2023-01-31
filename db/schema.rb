@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_030632) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
   create_table "campers", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -86,6 +86,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_030632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["camper_id"], name: "index_groups_on_camper_id"
+  end
+
+  create_table "invoices", charset: "utf8mb4", force: :cascade do |t|
+    t.string "recipient"
+    t.bigint "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_invoices_on_reservation_id"
   end
 
   create_table "lots", charset: "utf8mb4", force: :cascade do |t|
@@ -179,6 +187,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_030632) do
   add_foreign_key "extra_charges", "extras"
   add_foreign_key "extra_charges", "reservations"
   add_foreign_key "groups", "campers"
+  add_foreign_key "invoices", "reservations"
   add_foreign_key "lots", "rates"
   add_foreign_key "lots", "site_types"
   add_foreign_key "payments", "payment_methods"

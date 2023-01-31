@@ -96,12 +96,17 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     CamperMailer.with(reservation: @reservation, camper: @reservation.camper).confirmation_invoice_email.deliver_later
 
-    # should record these in a db table Jan 20
+    @inv = Invoice.new(recipient: @reservation.camper.email)
     # should handle any errors and report back with the notice
 
     respond_to do |format|
-      format.html { redirect_to @reservation, notice: "Confirmation invoice sent." }
-      format.json { render :show, status: :ok, location: @reservation }
+      if @inv.save
+        format.html { redirect_to @reservation, notice: "Confirmation invoice sent." }
+        format.json { render :show, status: :ok, location: @reservation }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @inv.errors, status: :unprocessable_entity }
+      end
     end
   end
 
