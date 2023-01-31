@@ -3,7 +3,7 @@ class LotsController < ApplicationController
   before_action :get_site_types, only: %i[ new create edit update ]
 
   def index
-    @lots = Lot.order(:id)
+    @lots = Lot.active_lots.order(:id)
     @active_event = Event.active_event
   end
 

@@ -6,9 +6,6 @@ class Lot < ApplicationRecord
 
     validates :name, :site_type, presence: true
 
-    # to-do list
-    #   still need to check for conflicts with reservations
-
     # deprecated method - now, reservations need to determine their total lot fee
     #    based on the event they are associated with
     # def lot_fee
@@ -20,5 +17,13 @@ class Lot < ApplicationRecord
         #   Add handling for when no Fee is found - maybe direct to create Fee?
         ae = Event.active_event
         self.fees.find_by(event: ae)
+    end
+
+    # Class methods
+
+    # add a report for all lots somewhere
+
+    def self.active_lots
+        self.where(unavailable: false)
     end
 end
