@@ -41,17 +41,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.perform_deliveries = true
-
-    # SMTP Configuration - Jan 24 2023
-    config.action_mailer.smtp_settings = {
-      address: 'smtp.dreamhost.com',
-      port: 465,
-      user_name: 'trailerpark@kinmountfair.net',
-      password: 'UqDfvRS6',
-      authentication: :login,
-      ssl: true
-    }
+  config.action_mailer.perform_deliveries = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

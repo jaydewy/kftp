@@ -32,4 +32,9 @@ class ReportsController < ApplicationController
         @active_event = Event.active_event
         @emails = Camper.email_list        
     end
+
+    def invoice_list
+        # get all invoices sent
+        @invoices = Invoice.all
+    end
 end

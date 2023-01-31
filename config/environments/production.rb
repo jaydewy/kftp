@@ -65,6 +65,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # SMTP Configuration - Jan 24 2023
+  # THIS NEEDS TO BE TREATED AS A SECRET!!!
   config.action_mailer.smtp_settings = {
     address: 'smtp.dreamhost.com',
     port: 465,

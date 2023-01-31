@@ -5,6 +5,9 @@
     <h1>Kinmount Fair Trailer Park</h1>
     <h2><%= @active_event.name %></h2>
     <p style="color: green" class="noprint"><%= notice %></p>
+    <% @reservation.invoices.each do |inv| %>
+        <p style="color: green" class="noprint">Invoice sent <%= inv.created_at.strftime('%F %T') %></p>
+    <% end %>
 </div>
 
     <div class="tp_info printonly">

@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
 
   before_action :set_reservation, only: %i[ show edit update destroy check_in check_out ]
   before_action :set_associations, only: %i[ new create edit update ]
-  before_action :set_event, only: %i[ index show in_park search ]
+  before_action :set_event, only: %i[ index show send_confirmation in_park search ]
 
   def index
     @reservations = Reservation.active_reservations
@@ -95,15 +95,16 @@ class ReservationsController < ApplicationController
   def send_confirmation
     @reservation = Reservation.find(params[:id])
     CamperMailer.with(reservation: @reservation, camper: @reservation.camper).confirmation_invoice_email.deliver_later
-
-    @inv = Invoice.new(recipient: @reservation.camper.email)
     # should handle any errors and report back with the notice
+    
+    @inv = @reservation.invoices.build(recipient: @reservation.camper.email)
 
     respond_to do |format|
-      if @inv.save
+      if @inv.save!
         format.html { redirect_to @reservation, notice: "Confirmation invoice sent." }
         format.json { render :show, status: :ok, location: @reservation }
       else
+        # This needs work - Invoice errors are not displayed anywhere
         format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @inv.errors, status: :unprocessable_entity }
       end
