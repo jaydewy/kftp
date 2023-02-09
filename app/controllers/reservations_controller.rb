@@ -7,6 +7,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.active_reservations
+    @in_park = Reservation.in_park_reservations
   end
 
   def new

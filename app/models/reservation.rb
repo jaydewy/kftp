@@ -110,6 +110,11 @@ class Reservation < ApplicationRecord
         end
     end
 
+    def self.in_park_reservations
+        # return list of checked in reservations for the active event
+        Reservation.active_reservations.where("checked_in = ?", true).order(:lot_id)
+    end
+
     def self.find_by_last_name(ln)
         if ae = Event.active_event
             reservations = ae.reservations.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
