@@ -32,9 +32,12 @@ body {
       grid-template-columns: 150px auto auto auto auto;
    }
   
+
+
    .logo-header, .header {
       background-color: #092f0a;
       color: #ffffff;
+      
    }
 
    .logo-header {

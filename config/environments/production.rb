@@ -66,11 +66,12 @@ Rails.application.configure do
 
   # SMTP Configuration - Jan 24 2023
   # THIS NEEDS TO BE TREATED AS A SECRET!!!
+  # Secrets added to server Mar 5 2023
   config.action_mailer.smtp_settings = {
     address: 'smtp.dreamhost.com',
     port: 465,
-    user_name: 'trailerpark@kinmountfair.net',
-    password: 'UqDfvRS6',
+    user_name: ENV["KFTP_SMTP_USER_NAME"],
+    password: ENV["KFTP_SMTP_PASSWORD"],
     authentication: :login,
     ssl: true
   }
