@@ -37,4 +37,10 @@ class ReportsController < ApplicationController
         # get all invoices sent
         @invoices = Invoice.all
     end
+
+    def vacant_lots
+        # get all vacant active lots for the active event
+        @active_event = Event.active_event
+        @vacancies = Lot.vacant_lots
+    end
 end

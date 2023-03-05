@@ -123,6 +123,7 @@ class ReservationsController < ApplicationController
   def search
     # search for reservations - by last name
     @reservations = Reservation.find_by_last_name(params[:query])
+    @in_park = Reservation.in_park_reservations
     render :index
   end
 

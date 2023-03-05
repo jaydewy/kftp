@@ -14,6 +14,8 @@ class Reservation < ApplicationRecord
 
     validates_with ReservationValidator
 
+    scope :active, -> { where(event: Event.active) }
+
     # to-do list
     #   DONE - need code to check for conflicts with lots per event - validator
     #   check in/out all reservations for a group/camper
@@ -117,7 +119,7 @@ class Reservation < ApplicationRecord
 
     def self.find_by_last_name(ln)
         if ae = Event.active_event
-            reservations = ae.reservations.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
+            reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%').where(reservations: { event: ae })
         else
             reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
         end

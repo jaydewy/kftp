@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get 'reports/event_checkins', to: 'reports#event_checkins'
   get 'reports/email_list', to: 'reports#email_list'
   get 'reports/invoice_list', to: 'reports#invoice_list'
+  get 'reports/vacant_lots', to: 'reports#vacant_lots'
 
   # Define all routes related to events
   resources :events

@@ -24,6 +24,17 @@ class Lot < ApplicationRecord
     # add a report for all lots somewhere
 
     def self.active_lots
+        # returns all available lots
+        #   used to display the Lot list
         self.where(unavailable: false)
+    end
+    
+    def self.vacant_lots
+        # returns all available Lots that have no Reservation made for the active Event
+        #   called in ReportsController
+        ### try to figure out how to do this in pure Active Record, not pure SQL
+        ae = Event.active_event
+        join = "LEFT OUTER JOIN (SELECT `reservations`.* FROM `reservations` WHERE `reservations`.event_id = " + ae.id.to_s + ") as `reservations` ON `reservations`.lot_id = `lots`.id"
+        self.where(unavailable: false).joins(join).where(reservations: { lot_id: nil })
     end
 end

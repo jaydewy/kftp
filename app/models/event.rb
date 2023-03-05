@@ -7,10 +7,13 @@ class Event < ApplicationRecord
 
     validates :name, :start_date, :end_date, presence: true
 
+    scope :active, -> { where(active: true) }
+
     # Class methods
 
     def self.active_event
         # the before_save callback should ensure that there is only ever one Event to return
+        ### can this be just a scope?????
         Event.find_by(active: true)
     end
 
