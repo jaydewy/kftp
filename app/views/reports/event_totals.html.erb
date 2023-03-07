@@ -1,0 +1,19 @@
+<h1>Event Totals for <%= @active_event.name %></h1>
+
+<h2>Payments Summary</h2>
+<table>
+    <% total = 0 %>
+    <% @payment_methods.each do |pm| %>
+        <tr>
+            <td><%= pm.name %></td>
+            <td><%= number_to_currency(@totals_hash[pm]) %></td>
+        </tr>
+        <% total += @totals_hash[pm] %>
+    <% end %>
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td><%= number_to_currency(total) %></td>
+        </tr>
+    </tfoot>
+</table>

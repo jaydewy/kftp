@@ -11,20 +11,20 @@ class ReportsController < ApplicationController
 
     def daily_totals
         # get all payments made on the specified date, by PaymentMethod
-        payments = Payment.get_payments_by_date(dt)
-        # methods = PaymentMethod.all
-
-        payments.each_with_object(Hash.new(0)) do |p, totals|
-            totals[p.payment_method] += p.amount
-        end
+        @totals_hash = Payment.get_payment_totals_by_date(dt)
+        @payment_methods = PaymentMethod.all
     end
 
     def event_totals
         # get all payments made for the specified event, by PaymentMethod
+        @totals_hash = Payment.get_payment_totals_active_event
+        @payment_methods = PaymentMethod.all
+        @active_event = Event.active_event
     end
 
     def event_checkins
-        # get all reservations checked in for a given event
+        # get all Reservations checked in for a given event
+        #   see updated ReservationsController::in_park
     end
 
     def email_list
@@ -39,8 +39,12 @@ class ReportsController < ApplicationController
     end
 
     def vacant_lots
-        # get all vacant active lots for the active event
+        # get all vacant active Lots for the active Event
         @active_event = Event.active_event
         @vacancies = Lot.vacant_lots
+    end
+
+    def discount_list
+        # get list of all Reservations under each Discount for active Event
     end
 end
