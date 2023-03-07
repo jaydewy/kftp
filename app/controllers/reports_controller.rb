@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
 
     def daily_totals
         # get all payments made on the specified date, by PaymentMethod
-        @totals_hash = Payment.get_payment_totals_by_date(dt)
+        @totals_hash = Payment.get_payment_totals_by_date(Date.today)
         @payment_methods = PaymentMethod.all
     end
 

@@ -124,4 +124,9 @@ class Reservation < ApplicationRecord
             reservations = Reservation.joins(:camper).where("last_name LIKE ?", Camper.sanitize_sql_like(ln) + '%')
         end
     end
+
+    def self.get_reservations_by_discount
+        # return list of Reservations for the active Event, by Discount
+        
+    end
 end

@@ -6,9 +6,9 @@
                 <th>Lot Number</th>
                 <th>Width</th>
                 <th>Length</th>
-                <th>Notes</th>
                 <th>Type</th>
                 <th>Fee for Active Event</th>
+                <th>Notes</th>
             </tr>    
         </thead>
         <tbody>
@@ -17,9 +17,9 @@
                     <td><%= lot.name %></td>
                     <td><%= lot.width %>'</td>
                     <td><%= lot.length %>'</td>
-                    <td><%= lot.special_condition %></td>
                     <td><%= lot.site_type.name %></td>
                     <td><%= number_to_currency(lot.active_fee.amount) %></td>
+                    <td><%= lot.special_condition %></td>
                 </tr>
             <% end %>    
         </tbody>
