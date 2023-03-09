@@ -1,0 +1,40 @@
+<h1>Discounted Reservations Report for <%= @active_event.name %></h1>
+<h2>Summary</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Discount</th>
+            <th>Total Active Reservations</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @disc_report.each do |disc| %>
+            <tr>
+                <td><%= disc.name %></td>
+                <td><%= disc.total %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<% @discounts.each do |d| %>
+    <h2><%= d.name %></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Lot</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <% @res_list[d].each do |res| %>
+            <tbody>
+                <tr>
+                    <td><%= res.lot.name %></td>
+                    <td><%= res.camper.full_name %></td>
+                    <td><%= %></td>
+                </tr>
+            </tbody>
+        <% end %>
+    </table>
+<% end %>

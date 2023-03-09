@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   get 'reports/vacant_lots', to: 'reports#vacant_lots'
   get 'reports/event_totals', to: 'reports#event_totals'
   get 'reports/daily_totals', to: 'reports#daily_totals'
+  get 'reports/discount_list', to: 'reports#discount_list'
+
 
   # Define all routes related to events
   resources :events

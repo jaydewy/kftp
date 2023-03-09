@@ -127,6 +127,10 @@ class Reservation < ApplicationRecord
 
     def self.get_reservations_by_discount
         # return list of Reservations for the active Event, by Discount
-        
+        #   v1
+        discounts = Discount.all
+        discounts.each_with_object(Hash.new(0)) do |d,res_list_by_discount|
+            res_list_by_discount[d] = d.reservations.merge(Reservation.active)
+        end
     end
 end
