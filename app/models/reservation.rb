@@ -130,7 +130,7 @@ class Reservation < ApplicationRecord
         #   v1
         discounts = Discount.all
         discounts.each_with_object(Hash.new(0)) do |d,res_list_by_discount|
-            res_list_by_discount[d] = d.reservations.merge(Reservation.active)
+            res_list_by_discount[d] = d.reservations.merge(Reservation.active).order(lot_id: :asc)
         end
     end
 end
