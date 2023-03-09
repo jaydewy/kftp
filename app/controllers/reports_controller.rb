@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
 
     def discount_list
         # get list of all Reservations under each Discount for active Event
-        @discounts = Discount.all
+        @discounts = Discount.all.order(:name)
         @active_event = Event.active_event
         @disc_report = Discount.discount_counts
         @res_list = Reservation.get_reservations_by_discount
