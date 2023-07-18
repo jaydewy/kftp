@@ -8,6 +8,11 @@ class Camper < ApplicationRecord
         "#{last_name}, #{first_name}"
     end
 
+    def active_reservations
+        # Return all active reservations for a Camper
+        Reservation.active_reservations.where(camper: self).sort()
+    end
+
     # Class methods
 
     def self.email_list

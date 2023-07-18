@@ -11,6 +11,7 @@
             <th>City</th>
             <th>Phone Number</th>
             <th>Email Address</th>
+            <th>Reservations</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,9 @@
                 <td><%= camper.city %></td>
                 <td><%= camper.phone %></td>
                 <td><%= camper.email %></td>
+                <td><% camper.active_reservations.each do |res| %>
+                    <%= link_to res.lot.name + " ", res %>
+                <% end %></td>
             </tr>
         <% end %>
     </tbody>
