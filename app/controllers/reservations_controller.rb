@@ -81,6 +81,7 @@ class ReservationsController < ApplicationController
 
   def check_in
     @reservation.check_in
+    @reservation.set_all_extras
     @reservation.save
     redirect_to @reservation
   end
