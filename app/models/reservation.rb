@@ -16,6 +16,8 @@ class Reservation < ApplicationRecord
 
     scope :active, -> { where(event: Event.active) }
 
+    enum :status, { active: 0, cancelled: 1, revoked: 2 }, prefix: true
+
     # to-do list
     #   DONE - need code to check for conflicts with lots per event - validator
     #   check in/out all reservations for a group/camper

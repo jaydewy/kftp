@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
-  create_table "campers", charset: "utf8mb4", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
+  create_table "campers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
     t.string "address", limit: 32, default: "", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "discounts", charset: "utf8mb4", force: :cascade do |t|
+  create_table "discounts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.decimal "amount", precision: 8, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.boolean "lot_fee_only", default: false, null: false
   end
 
-  create_table "events", charset: "utf8mb4", force: :cascade do |t|
+  create_table "events", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 30
     t.date "start_date"
     t.date "end_date"
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.boolean "active", default: false, null: false
   end
 
-  create_table "extra_charges", charset: "utf8mb4", force: :cascade do |t|
+  create_table "extra_charges", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "extra_id"
     t.bigint "reservation_id"
     t.integer "number", default: 0
@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["reservation_id"], name: "index_extra_charges_on_reservation_id"
   end
 
-  create_table "extras", charset: "utf8mb4", force: :cascade do |t|
+  create_table "extras", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.decimal "charge", precision: 6, scale: 2, default: "0.0"
     t.boolean "active", default: true
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["event_id"], name: "index_extras_on_event_id"
   end
 
-  create_table "fees", charset: "utf8mb4", force: :cascade do |t|
+  create_table "fees", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.decimal "amount", precision: 10, scale: 2
     t.bigint "event_id", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["site_type_id"], name: "index_fees_on_site_type_id"
   end
 
-  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+  create_table "groups", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.integer "expected_number", default: 0, null: false
     t.bigint "camper_id"
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["camper_id"], name: "index_groups_on_camper_id"
   end
 
-  create_table "invoices", charset: "utf8mb4", force: :cascade do |t|
+  create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "recipient"
     t.bigint "reservation_id", null: false
     t.datetime "created_at", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["reservation_id"], name: "index_invoices_on_reservation_id"
   end
 
-  create_table "lots", charset: "utf8mb4", force: :cascade do |t|
+  create_table "lots", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.integer "length", limit: 3, default: 0, null: false
     t.integer "width", limit: 3, default: 102
@@ -110,13 +110,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["site_type_id"], name: "index_lots_on_site_type_id"
   end
 
-  create_table "payment_methods", charset: "utf8mb4", force: :cascade do |t|
+  create_table "payment_methods", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "payments", charset: "utf8mb4", force: :cascade do |t|
+  create_table "payments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.decimal "amount", precision: 11, scale: 5, default: "0.0"
     t.string "memo"
     t.boolean "refundable", default: false
@@ -128,14 +128,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["reservation_id"], name: "index_payments_on_reservation_id"
   end
 
-  create_table "rates", charset: "utf8mb4", force: :cascade do |t|
+  create_table "rates", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.decimal "rate", precision: 10, scale: 5, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "reservations", charset: "utf8mb4", force: :cascade do |t|
+  create_table "reservation_statuses", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.date "fair_year"
     t.decimal "deposit", precision: 8, scale: 2, default: "0.0"
     t.decimal "override_total", precision: 8, scale: 2, default: "0.0"
@@ -171,6 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.datetime "updated_at", null: false
     t.boolean "non_renewable", default: false
     t.bigint "event_id"
+    t.integer "status", default: 0
     t.index ["camper_id"], name: "index_reservations_on_camper_id"
     t.index ["discount_id"], name: "index_reservations_on_discount_id"
     t.index ["event_id"], name: "index_reservations_on_event_id"
@@ -178,7 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_200745) do
     t.index ["lot_id"], name: "index_reservations_on_lot_id"
   end
 
-  create_table "site_types", charset: "utf8mb4", force: :cascade do |t|
+  create_table "site_types", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
