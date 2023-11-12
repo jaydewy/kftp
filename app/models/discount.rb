@@ -1,5 +1,6 @@
 class Discount < ApplicationRecord
     has_many :reservations
+    has_many :invoice_line_items
 
     # Class methods
     def self.discount_counts

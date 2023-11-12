@@ -1,6 +1,7 @@
 class Payment < ApplicationRecord
     belongs_to :payment_method
     belongs_to :reservation
+    belongs_to :invoice
 
     # to-do list
     #   add validations
