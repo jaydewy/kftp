@@ -3,6 +3,8 @@ class Payment < ApplicationRecord
     belongs_to :reservation
     belongs_to :invoice
 
+    enum :status, { approved: 1, completed: 2, canceled: 3, failed: 4 }, prefix: true
+
     # to-do list
     #   add validations
     #   add a void flag
