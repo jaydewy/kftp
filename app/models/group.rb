@@ -3,4 +3,9 @@ class Group < ApplicationRecord
     #    is where one camper books multiple lots
     belongs_to :camper
     has_many :reservations
+
+    # Instance methods
+
+    # Class methods
+
 end

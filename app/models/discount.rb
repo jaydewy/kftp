@@ -2,6 +2,9 @@ class Discount < ApplicationRecord
     has_many :reservations
     has_many :invoice_line_items
 
+    # Instance methods
+
+ 
     # Class methods
     def self.discount_counts
         # returns total reservations for each Discount, for the active Event

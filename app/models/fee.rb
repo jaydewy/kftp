@@ -5,4 +5,9 @@ class Fee < ApplicationRecord
 
   validates :name, :amount, presence: true
   validates_with FeeValidator
+
+  # Instance methods
+
+  # Class methods
+
 end

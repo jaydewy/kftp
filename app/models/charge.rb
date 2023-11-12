@@ -3,4 +3,8 @@ class Charge < ApplicationRecord
   belongs_to :reservation
   has_many :invoice_line_items, as: :item
 
+  # Instance methods
+
+  # Class methods
+
 end
