@@ -9,6 +9,8 @@ class Event < ApplicationRecord
 
     scope :active, -> { where(active: true) }
 
+    # Instance methods
+
     # Class methods
 
     def self.active_event
