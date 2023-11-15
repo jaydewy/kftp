@@ -5,7 +5,12 @@ class Invoice < ApplicationRecord
 
   enum :status, { draft: 1, unpaid: 2, paid: 3 }, prefix: true
 
-  # Instance methods
+  # Instance 
+  
+  def subtotal
+    # Sum of all of this Invoice's InvoiceLineItems line_totals
+
+  end
 
   # Class methods
 
