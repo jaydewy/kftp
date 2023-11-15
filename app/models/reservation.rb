@@ -9,7 +9,7 @@ class Reservation < ApplicationRecord
     has_many :extras, through: :extra_charges
     has_and_belongs_to_many :invoices, dependent: :delete_all
     has_one :site_type, through: :lot
-    has_one :charges
+    has_one :charge
 
     accepts_nested_attributes_for :extra_charges
 
