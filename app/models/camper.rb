@@ -19,8 +19,23 @@ class Camper < ApplicationRecord
         # Return an array of distinct emails for Campers with an active Reservation
         ae = Event.active_event
         camper_emails = Camper.joins(:reservations).where('reservations.event_id = ?', ae.id).select(:email).distinct
-        camper_emails.each_with_object(Array.new()) do |ce, emails|
-            emails << ce.email
+        camper_emails_2 = Camper.joins(:reservations).where('reservations.event_id = ?', ae.id).select(:email_2).distinct
+
+        emails = Array.new()
+
+        camper_emails.each do |ce|
+            unless ce.email.empty?
+                emails << ce.email
+            end
         end
+        camper_emails_2.each do |ce|
+            unless ce.email_2.empty?
+                emails << ce.email_2
+            end
+        end
+        emails
+        # camper_emails.each_with_object(Array.new()) do |ce, emails|
+        #     emails << ce.email
+        # end
     end
 end
