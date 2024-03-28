@@ -33,9 +33,10 @@ class Camper < ApplicationRecord
                 emails << ce.email_2
             end
         end
-        emails
+        
         # camper_emails.each_with_object(Array.new()) do |ce, emails|
         #     emails << ce.email
         # end
+        return emails
     end
 end
