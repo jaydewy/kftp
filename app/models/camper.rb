@@ -24,13 +24,17 @@ class Camper < ApplicationRecord
         emails = Array.new()
 
         camper_emails.each do |ce|
-            unless ce.email.empty?
-                emails << ce.email
+            unless ce.email.nil?
+                unless ce.email.empty?
+                    emails << ce.email
+                end
             end
         end
         camper_emails_2.each do |ce|
-            unless ce.email_2.empty?
-                emails << ce.email_2
+            unless ce.email_2.nil?
+                unless ce.email_2.empty?
+                    emails << ce.email_2
+                end
             end
         end
         
