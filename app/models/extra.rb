@@ -4,7 +4,11 @@ class Extra < ApplicationRecord
 
     validates :name, :charge, presence: true
     
-
     # to-do list
     #   Need to update all Reservations whenever an Extra is created, updated, or deleted
+
+    # Instance methods
+
+    # Class methods
+
 end

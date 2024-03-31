@@ -1,6 +1,7 @@
 class ExtraCharge < ApplicationRecord
     belongs_to :reservation
     belongs_to :extra
+    has_many :invoice_line_items, as: :item
 
     before_update :set_charge
 

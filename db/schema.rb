@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_220000) do
   create_table "campers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -29,6 +29,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "charges", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "fee_id", null: false
+    t.bigint "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fee_id"], name: "index_charges_on_fee_id"
+    t.index ["reservation_id"], name: "index_charges_on_reservation_id"
+  end
+
   create_table "discounts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 32, default: "", null: false
     t.decimal "amount", precision: 8, scale: 2, default: "0.0"
@@ -45,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: false, null: false
+    t.string "prefix_string"
   end
 
   create_table "extra_charges", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -88,12 +98,37 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
     t.index ["camper_id"], name: "index_groups_on_camper_id"
   end
 
+  create_table "invoice_line_items", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "item_name"
+    t.integer "item_quantity", null: false
+    t.decimal "item_unit_price", precision: 5, scale: 2
+    t.bigint "invoice_id", null: false
+    t.bigint "discount_id"
+    t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discount_id"], name: "index_invoice_line_items_on_discount_id"
+    t.index ["invoice_id"], name: "index_invoice_line_items_on_invoice_id"
+    t.index ["item_type", "item_id"], name: "index_invoice_line_items_on_item"
+  end
+
   create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "recipient"
     t.bigint "reservation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "invoice_number"
+    t.string "recipient_name"
+    t.integer "status", default: 0
+    t.string "lot_name"
+    t.date "paid_date"
     t.index ["reservation_id"], name: "index_invoices_on_reservation_id"
+  end
+
+  create_table "invoices_reservations", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "invoice_id", null: false
+    t.bigint "reservation_id", null: false
   end
 
   create_table "lots", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -124,6 +159,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
     t.bigint "reservation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "invoice_id"
+    t.string "reference_number"
+    t.integer "status", default: 0
+    t.decimal "change_back", precision: 5, scale: 2
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
     t.index ["payment_method_id"], name: "index_payments_on_payment_method_id"
     t.index ["reservation_id"], name: "index_payments_on_reservation_id"
   end
@@ -191,9 +231,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_015650) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "charges", "fees"
+  add_foreign_key "charges", "reservations"
   add_foreign_key "extra_charges", "extras"
   add_foreign_key "extra_charges", "reservations"
   add_foreign_key "groups", "campers"
+  add_foreign_key "invoice_line_items", "discounts"
+  add_foreign_key "invoice_line_items", "invoices"
   add_foreign_key "invoices", "reservations"
   add_foreign_key "lots", "rates"
   add_foreign_key "lots", "site_types"
