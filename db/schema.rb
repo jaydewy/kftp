@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_12_044425) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_220000) do
   create_table "campers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_044425) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: false, null: false
+    t.string "prefix_string"
   end
 
   create_table "extra_charges", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
