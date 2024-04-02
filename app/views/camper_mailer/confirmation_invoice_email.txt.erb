@@ -1,7 +1,7 @@
 Reservation Invoice - <%= @reservation.event.name %>
-September 1st, 2nd, and 3rd, 2023
+August 30th, 31st, and September 1st, 2024
 ===============================================================================
-<%= @reservation.updated_at.strftime('%F %T') %> - RES ID# 2023-<%= @reservation.id %>
+<%= @reservation.updated_at.strftime('%F %T') %> - RES ID# 2024-<%= @reservation.id %>
 
 Name:           <%= @camper.full_name %>
 Address:        <%= @camper.address %>
@@ -9,6 +9,8 @@ City:           <%= @camper.city %>, <%= @camper.province %>
 Postal Code:    <%= @camper.postal_code %>
 Phone Number:   <%= @camper.phone %>
 Email Address:  <%= @camper.email %>
+Phone 2:   <%= @camper.phone_2 %>
+Email 2:  <%= @camper.email_2 %>
 
 Lot: <%= @reservation.lot.name %>
 
@@ -35,7 +37,7 @@ Keep this invoice for your records.
 This invoice is your reservation confirmation.
 
 
-2023 Trailer Park Dates: Tue Aug 29 - Mon Sep 4
+2024 Trailer Park Dates: Tue Aug 27th - Mon Sep 2nd
 Visit our website kinmountfair.net for trailer park information
 Please direct trailer park inquires to trailerpark@kinmountfair.net
 For all other inquiries contact info@kinmountfair.net

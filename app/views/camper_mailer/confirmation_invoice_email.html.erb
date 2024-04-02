@@ -1,7 +1,7 @@
 <h3 style="font-family:verdana,sans-serif">Reservation Invoice - <%= @reservation.event.name %></h3>
-<h4 style="font-family:verdana,sans-serif">September 1st, 2nd, and 3rd, 2023</h4>
+<h4 style="font-family:verdana,sans-serif">August 30th, 31st, and September 1st, 2024</h4>
 
-<p style="font-family:verdana,sans-serif"><%= @reservation.updated_at.strftime('%F %T') %> - RES ID# 2023-<%= @reservation.id %></p>
+<p style="font-family:verdana,sans-serif"><%= @reservation.updated_at.strftime('%F %T') %> - RES ID# 2024-<%= @reservation.id %></p>
 <table style="font-family:verdana,sans-serif">
     <tr>
         <td>Name:</td> <td><%= @camper.full_name %></td>
@@ -20,7 +20,13 @@
     </tr>
     <tr>
         <td>Email Address:</td><td><%= @camper.email %></td>
-
+    </tr>
+    <tr>
+        <td>Phone 2:</td><td><%= @camper.phone_2 %></td>
+    </tr>
+    <tr>
+        <td>Email 2:</td><td><%= @camper.email_2 %></td>
+    </tr>
 </table>
 <br>
 
@@ -61,7 +67,7 @@ Payment Record
 <div style="font-family:verdana,sans-serif">
     <p>Keep this invoice for your records.</p>
     <p style="font-weight:bold">This invoice is your reservation confirmation.</p>
-    <p>2023 Trailer Park Dates: Tue Aug 29 - Mon Sep 4<br>
+    <p>2024 Trailer Park Dates: Tue Aug 27th - Mon Sep 2nd<br>
     Visit our website <a href="https://www.kinmountfair.net/">kinmountfair.net</a> for trailer park information<br>
     Please direct trailer park inquires to  <a href="mailto:trailerpark@kinmountfair.net">trailerpark@kinmountfair.net</a><br>
     For all other inquiries contact <a href="mailto:info@kinmountfair.net">info@kinmountfair.net</a></p>
