@@ -3,19 +3,16 @@ class PaymentsController < ApplicationController
   before_action :set_payment, only: %i[ update destroy ]
 
   def create
-    # @reservation = Reservation.find(params[:reservation_id])
-    @payment = @reservation.payments.create(payment_params)
+    @payment = @reservation.payments.build(payment_params)
 
     respond_to do |format|
-      format.html { redirect_to @reservation, notice: "Payment was successfully created." }
-      format.json { render @reservation, status: :created, location: @payment }
-      # if @fee.save
-      #   format.html { redirect_to fees_path, notice: "Fee was successfully created." }
-      #   format.json { render :show, status: :created, location: @fee }
-      # else
-      #   format.html { render :new, status: :unprocessable_entity }
-      #   format.json { render json: @fee.errors, status: :unprocessable_entity }
-      # end
+      if @payment.save!
+        format.html { redirect_to @reservation, notice: "Payment was successfully created." }
+        format.json { render @reservation, status: :created, location: @payment }
+      else
+        format.html { redirect_to @reservation, status: :unprocessable_entity }
+        format.json { render json: @payment.errors, status: :unprocessable_entity }
+      end
     end
   end
 
