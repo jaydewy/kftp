@@ -99,16 +99,16 @@ class ReservationsController < ApplicationController
     CamperMailer.with(reservation: @reservation, camper: @reservation.camper).confirmation_invoice_email.deliver_later
     # should handle any errors and report back with the notice
     
-    @inv = @reservation.invoices.build(recipient: @reservation.camper.email)
+    @reservation.invoices.build(recipient: @reservation.camper.email)
 
     respond_to do |format|
-      if @inv.save!
+      if @reservation.save!
         format.html { redirect_to @reservation, notice: "Confirmation invoice sent." }
         format.json { render :show, status: :ok, location: @reservation }
       else
         # This needs work - Invoice errors are not displayed anywhere
         format.html { render :show, status: :unprocessable_entity }
-        format.json { render json: @inv.errors, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
   end
