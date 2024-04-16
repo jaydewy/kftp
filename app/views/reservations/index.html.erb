@@ -29,7 +29,7 @@
             <th>Lot</th>
             <th>Name</th>
             <th>Owing</th>
-            <th></th>
+            <th>Last Sent</th>
             <th></th>
             <th></th>
         </tr>
@@ -40,6 +40,9 @@
                 <td><%= reservation.lot.name %></td>
                 <td><%= link_to reservation.camper.last_name + ', ' + reservation.camper.first_name, reservation %></td>
                 <td><%= number_to_currency(reservation.due) %> </td>
+                <td><%= unless reservation.invoices.empty? 
+                            reservation.invoices.last.created_at.strftime("%H:%M %d/%m/%Y") 
+                        end %></td>
                 <% if reservation.checked_in %>
                     <td><%= link_to "Undo Check In", check_out_reservation_path(reservation) %></td>
                 <% else %>
@@ -50,7 +53,6 @@
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure you want to delete this reservation? This cannot be undone."
                   } %></td>
-                <td><%= %></td>
             </tr>
         <% end %>
     </tbody>
