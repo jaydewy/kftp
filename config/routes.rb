@@ -42,5 +42,9 @@ Rails.application.routes.draw do
 
   # Define all routes related to events
   resources :events
+
+  # Define routes for user authentication
+  post "sign_up", to: "users#create"
+  get "sign_up", to: "users#new"
   
 end
