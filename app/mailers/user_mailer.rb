@@ -11,4 +11,11 @@ class UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: "Confirmation Instructions for KFTP"
   end
+
+  def password_reset(user, password_reset_token)
+    @user = user
+    @password_reset_token = password_reset_token
+
+    mail to: @user.email, subject: "Password Reset for KFTP"
+  end
 end
