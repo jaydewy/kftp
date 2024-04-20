@@ -20,6 +20,10 @@ module Authentication
     def redirect_if_authenticated
       redirect_to root_path, alert: "You are already logged in." if user_signed_in?
     end
+
+    def authenticate_user!
+      redirect_to login_path, alert: "Access denied."
+    end
   
     private
   
