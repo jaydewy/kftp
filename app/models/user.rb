@@ -4,8 +4,6 @@ class User < ApplicationRecord
 
     has_secure_password
 
-    has_secure_token :remember_token
-
     attr_accessor :current_password
 
     has_many :active_sessions, dependent: :destroy
