@@ -22,6 +22,7 @@ module Authentication
     end
 
     def authenticate_user!
+      store_location
       redirect_to login_path, alert: "Access denied."
     end
 
@@ -47,6 +48,10 @@ module Authentication
       elsif cookies.permanent.encrypted[:remember_token].present?
         User.find_by(remember_token: cookies.permanent.encrypted[:remember_token])
       end
+    end
+
+    def store_location
+      session[:user_return_to] = request.original_url if request.get? && request.local?
     end
   
   end
