@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
     has_secure_password
 
+    has_secure_token :remember_token
+
     attr_accessor :current_password
 
     before_save :downcase_unconfirmed_email

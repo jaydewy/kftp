@@ -24,15 +24,29 @@ module Authentication
     def authenticate_user!
       redirect_to login_path, alert: "Access denied."
     end
-  
-    private
-  
-    def current_user
-      Current.user ||= session[:current_user_id] && User.find_by(id: session[:current_user_id])
+
+    def forget(user)
+      cookies.delete :remember_token
+      user.regenerate_remember_token      
+    end
+
+    def remember(user)
+      user.regenerate_remember_token
+      cookies.permanent.encrypted[:remember_token] = user.remember_token
     end
   
+    private
+      
     def user_signed_in?
       Current.user.present?
+    end
+
+    def current_user
+      Current.user ||= if session[:current_user_id].present?
+        User.find_by(id: session[:current_user_id])
+      elsif cookies.permanent.encrypted[:remember_token].present?
+        User.find_by(remember_token: cookies.permanent.encrypted[:remember_token])
+      end
     end
   
   end

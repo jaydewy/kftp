@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_20_021750) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_25_024720) do
   create_table "campers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "last_name", limit: 32, default: "", null: false
     t.string "first_name", limit: 32, default: "", null: false
@@ -237,7 +237,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_20_021750) do
     t.datetime "confirmed_at"
     t.string "password_digest", null: false
     t.string "unconfirmed_email"
+    t.string "remember_token", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["remember_token"], name: "index_users_on_remember_token", unique: true
   end
 
   add_foreign_key "charges", "fees"
