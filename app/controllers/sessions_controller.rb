@@ -13,9 +13,6 @@ class SessionsController < ApplicationController
           active_session = login @user
           remember(active_session) if params[:user][:remember_me] == "1"
           redirect_to after_login_path, notice: "Signed in."
-        else
-          flash.now[:alert] = "Incorrect email or password."
-          render :new, status: :unprocessable_entity
         end
       else
         flash.now[:alert] = "Incorrect email or password."
