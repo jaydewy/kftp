@@ -1,7 +1,7 @@
 <header>
     <nav>
         <ul>
-            <li><%= image_tag "KFTPLogo_02282023.png", alt: "KFTP Logo", height: 50 %></li>
+            <li><%= link_to image_tag("KFTPLogo_02282023.png", alt: "KFTP Logo", height: 50), root_path %></li>
         </ul>
         <ul>
             <li><strong>KFTP</strong></li>
@@ -11,10 +11,10 @@
                 <details class="dropdown">
                     <summary>Menu</summary>
                     <ul dir="rtl">
-                        <li><%= link_to "Reservations", reservations_path %></li>
-                        <li><%= link_to "Lots", lots_path %></li>
-                        <li><%= link_to "Campers", campers_path %></li>
                         <li><%= link_to "New Reservation", new_reservation_path %></li>
+                        <li><%= link_to "Reservations", reservations_path %></li>
+                        <li><%= link_to "Campers", campers_path %></li>
+                        <li><%= link_to "Lots", lots_path %></li>
                         <li><%= link_to "Reports", reports_path %></li>
                     </ul>
                 </details>

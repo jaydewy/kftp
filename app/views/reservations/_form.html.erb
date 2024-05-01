@@ -13,34 +13,34 @@
 
     <%= form.hidden_field :event_id, value: @active_event.id %>
 
-    <%= form.label :camper_id, "Select Camper" %><br>
+    <%= form.label :camper_id, "Select Camper" %>
     <%= form.collection_select :camper_id, @campers, :id, :full_name %>
-    <br>
-    <%= form.label :lot_id, "Select Lot" %><br>
+    
+    <%= form.label :lot_id, "Select Lot" %>
     <%= form.collection_select :lot_id, @lots, :id, :name %>
-    <br>
-    <%= form.label :discount_id, "Select Discount" %><br>
+    
+    <%= form.label :discount_id, "Select Discount" %>
     <%= form.collection_select :discount_id, @discounts, :id, :name %>
-    <br>
+    
 
-    <%= form.label :slides, "Number of slideouts" %><br>
-    <%= form.number_field :slides %><br>
-    <%= form.label :length, "Trailer Length" %><br>
-    <%= form.number_field :length %><br>
-    <%= form.label :vehicle_license, "Licence Plate" %><br>
-    <%= form.text_field :vehicle_license %><br>
-    <%= form.label :vehicle_license_2, "Licence Plate 2" %><br>
-    <%= form.text_field :vehicle_license_2 %><br>
-    <%= form.label :adults, "Number of Adults" %><br>
-    <%= form.number_field :adults %><br>
-    <%= form.label :kids, "Number of Children" %><br>
-    <%= form.number_field :kids %><br>
-    <%= form.label :pets, "Number of Pets" %><br>
-    <%= form.number_field :pets %><br>
-    <%= form.label :special_request, "Notes" %><br>
-    <%= form.text_field :special_request %><br>
+    <%= form.label :slides, "Number of slideouts" %>
+    <%= form.number_field :slides %>
+    <%= form.label :length, "Trailer Length" %>
+    <%= form.number_field :length %>
+    <%= form.label :vehicle_license, "Licence Plate" %>
+    <%= form.text_field :vehicle_license %>
+    <%= form.label :vehicle_license_2, "Licence Plate 2" %>
+    <%= form.text_field :vehicle_license_2 %>
+    <%= form.label :adults, "Number of Adults" %>
+    <%= form.number_field :adults %>
+    <%= form.label :kids, "Number of Children" %>
+    <%= form.number_field :kids %>
+    <%= form.label :pets, "Number of Pets" %>
+    <%= form.number_field :pets %>
+    <%= form.label :special_request, "Notes" %>
+    <%= form.text_field :special_request %>
     <%= form.label :non_renewable, "Non Renewable?" %>
-    <%= form.check_box :non_renewable %><br>
+    <%= form.check_box :non_renewable %>
 
     <%= form.submit "Save Reservation" %>
 <% end %>
