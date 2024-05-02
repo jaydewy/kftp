@@ -12,17 +12,17 @@
   <% end %>
 
   <div>
-    <%= f.label :name, "Fee Name" %><br>
-    <%= f.text_field :name %><br>
+    <%= f.label :name, "Fee Name" %>
+    <%= f.text_field :name %>
 
-    <%= f.label :amount, "Amount" %><br>
-    <%= f.number_field :amount %><br>
+    <%= f.label :amount, "Amount" %>
+    <%= f.number_field :amount %>
 
-    <%= f.label :event_id, "Event" %><br>
-    <%= f.collection_select :event_id, @events, :id, :name %><br>
+    <%= f.label :event_id, "Event" %>
+    <%= f.collection_select :event_id, @events, :id, :name %>
 
-    <%= f.label :site_type_id, "Site Type" %><br>
-    <%= f.collection_select :site_type_id, @sitetypes, :id, :name %><br>
+    <%= f.label :site_type_id, "Site Type" %>
+    <%= f.collection_select :site_type_id, @sitetypes, :id, :name %>
 
     <%= f.submit "Save Fee" %>
   </div>

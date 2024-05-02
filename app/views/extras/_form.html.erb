@@ -11,17 +11,17 @@
         </div>
     <% end %>
 
-    <%= f.label :name, "Extra Name" %><br>
-    <%= f.text_field :name %><br>
+    <%= f.label :name, "Extra Name" %>
+    <%= f.text_field :name %>
 
-    <%= f.label :charge, "Charge" %><br>
-    <%= f.number_field :charge %><br>
+    <%= f.label :charge, "Charge" %>
+    <%= f.number_field :charge %>
 
-    <%= f.label :event_id, "Event" %><br>
-    <%= f.collection_select :event_id, @events, :id, :name %><br>
+    <%= f.label :event_id, "Event" %>
+    <%= f.collection_select :event_id, @events, :id, :name %>
 
-    <%= f.label :active, "Active" %><br>
-    <%= f.check_box :active %><br>
+    <%= f.label :active, "Active" %>
+    <%= f.check_box :active %>
 
     <%= f.submit "Save Extra" %>
 

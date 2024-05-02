@@ -12,17 +12,17 @@
   <% end %>
 
   <div>
-    <%= f.label :name, "Discount Name" %><br>
-    <%= f.text_field :name %><br>
+    <%= f.label :name, "Discount Name" %>
+    <%= f.text_field :name %>
 
-    <%= f.label :amount, "Discount Amount/Percentage" %><br>
-    <%= f.number_field :amount, step: 0.01 %><br>
+    <%= f.label :amount, "Discount Amount/Percentage" %>
+    <%= f.number_field :amount, step: 0.01 %>
 
-    <%= f.label :is_percent, "Percentage Discount" %><br>
-    <%= f.check_box :is_percent %><br>
+    <%= f.label :is_percent, "Percentage Discount" %>
+    <%= f.check_box :is_percent %>
 
-    <%= f.label :lot_fee_only, "Discount only applies to lot fee" %><br>
-    <%= f.check_box :lot_fee_only %><br>
+    <%= f.label :lot_fee_only, "Discount only applies to lot fee" %>
+    <%= f.check_box :lot_fee_only %>
 
     <%= f.submit "Save Discount" %>
   </div>
