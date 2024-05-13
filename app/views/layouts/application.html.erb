@@ -12,11 +12,10 @@
   </head>
 
   <body>
-    <main class="container">
-      <%= render :partial => 'layouts/header' %>
-    
+    <%= render :partial => 'layouts/header' %>
+    <main class="container"> 
       <%= yield %>
-      <%= render :partial => 'layouts/footer' %>
     </main>
+    <%= render :partial => 'layouts/footer' %>
   </body>
 </html>
