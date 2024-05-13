@@ -115,6 +115,16 @@ class Reservation < ApplicationRecord
         end
     end
 
+    def self.active_reservations_for_index
+        # return only specfic fields from all Reservations for the current active Event
+        if ae = Event.active_event
+            ae.reservations.select(:id, :camper_id, :lot_id).order(:lot_id)
+        else
+            # decide what to return here - error message perhaps, or a notice
+            Reservation.select(:id, :camper_id, :lot_id).order(:lot_id)
+        end
+    end
+
     def self.in_park_reservations
         # return list of checked in reservations for the active event
         Reservation.active_reservations.where("checked_in = ?", true).order(:lot_id)
