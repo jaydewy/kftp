@@ -6,7 +6,7 @@ class ReservationsController < ApplicationController
   before_action :set_event, only: %i[ index show send_confirmation in_park search ]
 
   def index
-    @reservations = Reservation.active_reservations
+    @reservations = Reservation.active_reservations_for_index
     @in_park_count = Reservation.in_park_reservations.size
   end
 
