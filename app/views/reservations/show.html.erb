@@ -1,9 +1,12 @@
 <% # This page when printed is also the Camper's receipt/invoice for the Lot %>
-<% # Add button to send invoice by email %>
 
 <div class="print_header">
     <h1>Kinmount Fair Trailer Park</h1>
     <h2><%= @active_event.name %></h2>
+    <%= button_to "Send Confirmation Invoice", send_confirmation_reservation_path(@reservation), data: {
+                    turbo_method: :post,
+                    turbo_confirm: "Send Reservation Confirmation?"
+                  } %>
     <p style="color: green" class="noprint"><%= notice %></p>
     <% @reservation.invoices.each do |inv| %>
         <p style="color: green" class="noprint">Invoice sent <%= inv.created_at.strftime('%F %T') %></p>
