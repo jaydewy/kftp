@@ -11,9 +11,9 @@
     Total Checked In: <%= @in_park_count %>
 </div>
 
-<div>
+<p>
    <%= link_to "New Reservation", new_reservation_path %>
-</div>
+</p>
 
 <div>
     <%= form_with url: search_reservations_url, method: :get do |f|  %>
