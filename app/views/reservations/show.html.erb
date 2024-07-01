@@ -40,6 +40,7 @@
         <h2>Camper Information</h2>
         Name: <%= @reservation.camper.first_name %> <%= @reservation.camper.last_name %><br>
         Address: <%= @reservation.camper.address %><br>
+        City: <%= @reservation.camper.city + ", " + @reservation.camper.province %><br>
         Postal Code: <%= @reservation.camper.postal_code %><br>
         Phone: <%= @reservation.camper.phone %><br>
         Email: <%= @reservation.camper.email %><br>
