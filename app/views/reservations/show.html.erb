@@ -38,6 +38,7 @@
         </p>
     </div>
 
+<div>
     <div class="camper_info">
         <h2>Camper Information</h2>
         Name: <%= @reservation.camper.first_name %> <%= @reservation.camper.last_name %><br>
@@ -63,6 +64,7 @@
         <%= @reservation.non_renewable %><br>
         <span class="noprint"><%= link_to "Edit Reservation Details", edit_reservation_path(@reservation) %></span>
     </div>
+</div>
 
     <div class="fee_info">
         <h2>Fee Summary</h2>
