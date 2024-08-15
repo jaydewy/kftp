@@ -1,19 +1,19 @@
-<% # This page when printed is also the Camper's receipt/invoice for the Lot %>
+<% # This page when printed is also the Camper's receipt/invoice/permit for the Lot %>
 
-<div class="print_header">
-    <h1>Kinmount Fair Trailer Park</h1>
-    <h2><%= @active_event.name %></h2>
-        <div class="noprint">
-            <%= button_to "Send Confirmation Invoice", send_confirmation_reservation_path(@reservation), data: {
-                            turbo_method: :post,
-                            turbo_confirm: "Send Reservation Confirmation?"
-                        } %>
-        </div>
-    <p style="color: green" class="noprint"><%= notice %></p>
-    <% @reservation.invoices.each do |inv| %>
-        <p style="color: green" class="noprint">Invoice sent <%= inv.created_at.strftime('%F %T') %></p>
-    <% end %>
-</div>
+    <div class="print_header">
+        <h1 class="printonly">Kinmount Fair Trailer Park</h1>
+        <h2><%= @active_event.name %></h2>
+            <div class="noprint">
+                <%= button_to "Send Confirmation Invoice", send_confirmation_reservation_path(@reservation), data: {
+                                turbo_method: :post,
+                                turbo_confirm: "Send Reservation Confirmation?"
+                            } %>
+            </div>
+        <p style="color: green" class="noprint"><%= notice %></p>
+        <% @reservation.invoices.each do |inv| %>
+            <p style="color: green" class="noprint">Invoice sent <%= inv.created_at.strftime('%F %T') %></p>
+        <% end %>
+    </div>
 
     <div class="tp_info printonly">
         P.O. BOX 238<br>
@@ -38,11 +38,10 @@
         </p>
     </div>
 
-<div>
+
     <div class="camper_info">
         <h2>Camper Information</h2>
         Name: <%= @reservation.camper.first_name %> <%= @reservation.camper.last_name %><br>
-        Address: <%= @reservation.camper.address %><br>
         City: <%= @reservation.camper.city + ", " + @reservation.camper.province %><br>
         Postal Code: <%= @reservation.camper.postal_code %><br>
         Phone: <%= @reservation.camper.phone %><br>
@@ -64,7 +63,6 @@
         <%= @reservation.non_renewable %><br>
         <span class="noprint"><%= link_to "Edit Reservation Details", edit_reservation_path(@reservation) %></span>
     </div>
-</div>
 
     <div class="fee_info">
         <h2>Fee Summary</h2>

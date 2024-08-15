@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-  #layout "reservation_show", only: [:show]
+  layout "reservation_show", only: [:show]
 
   before_action :set_reservation, only: %i[ show edit update destroy check_in check_out ]
   before_action :set_associations, only: %i[ new create edit update ]

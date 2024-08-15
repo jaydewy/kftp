@@ -1,32 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
   <head>
-    <title>Lot <%= @reservation.lot.name %> </title>
+    <title>Lot <%= @reservation.lot.name + " - " + @active_event.name%> </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "pico.green.min", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "pico.colors", "data-turbo-track": "reload" %>
+
+    <style>
+    @media print {
+      /* Styles for printing invoices / lot sheets and displaying reservations */
+          .res_main {
+            display: grid;
+            grid-template-areas: 
+              'header header'
+              'tpinfo checkin'
+              'camperinfo resinfo'
+              'feeinfo feeinfo'
+              'paymentinfo paymentinfo';
+          }
+      
+          .print_header {
+            grid-area: header;
+            text-align: center;
+          }
+      
+          .tp_info {
+            grid-area: tpinfo;
+          }
+      
+          .checkin_info {
+            grid-area: checkin;
+          }
+      
+          .camper_info {
+            grid-area: camperinfo;
+          }
+      
+          .res_info {
+            grid-area: resinfo;
+          }
+      
+          .fee_info {
+            grid-area: feeinfo;
+          }
+      
+          .payment_info {
+            grid-area: paymentinfo;
+          }
+      
+          table {
+            width: 100%;
+          }
+    }
+      
+    @media screen {
+      .res_main {
+        display: grid;
+        grid-template-areas: 
+          'header checkin'
+          'camperinfo resinfo'
+          'feeinfo extraform'
+          'paymentinfo paymentform';
+        background-color: inherit;
+        justify-content: space-between;
+      }
+
+      .print_header {
+          grid-area: header;
+          text-align: left;
+      }
+      
+      .checkin_info {
+          grid-area: checkin;
+      }
+      
+      .camper_info {
+          grid-area: camperinfo;
+      }
+      
+      .res_info {
+          grid-area: resinfo;
+      }
+      
+      .fee_info {
+          grid-area: feeinfo;
+      }
+      
+      .payment_info {
+          grid-area: paymentinfo;
+      }
+
+      .payment_form {
+          grid-area: paymentform;
+      }
+
+      .extra_form {
+          grid-area: extraform;
+      }
+
+      .extra_form, .payment_form, .payment_info, .fee_info, .res_info, .camper_info, .checkin_info, .print_header {
+        padding: 1% 0px;
+      }
+
+    }      
+    </style>
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <div class="content" >
-        <div class="logo-header">
-          <%= image_tag "KFTPLogo_02282023.png", alt: "KFTP Logo", height: 50 %>
-        </div>
-
-        <div class="header">
-            <%= link_to "Send Confirmation Invoice", send_confirmation_reservation_path(@reservation), data: {
-                    turbo_method: :post,
-                    turbo_confirm: "Send Reservation Confirmation?"
-                  } %>
-        </div>
-        
-        <%= render :partial => 'layouts/sidebar' %>
-        <div class="res_main">
-            <%= yield %>
-        </div>
-    </div>
+    <%= render :partial => 'layouts/header' %>
+    <main class="container res_main"> 
+      <%= yield %>
+    </main>
+    <%= render :partial => 'layouts/footer' %>
   </body>
 </html>
