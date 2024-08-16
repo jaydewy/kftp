@@ -18,7 +18,7 @@
 <div>
     <%= form_with url: search_reservations_url, method: :get do |f|  %>
         <fieldset role="search">
-        <%= f.text_field :query, placeholder: "Search by Last Name:" %>
+        <%= f.text_field :query, placeholder: "Search by First Name, Last Name, or Lot:" %>
         <%= f.submit "Search" %>
         </fieldset>
     <% end %>

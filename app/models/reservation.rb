@@ -146,4 +146,15 @@ class Reservation < ApplicationRecord
             res_list_by_discount[d] = d.reservations.merge(Reservation.active).order(lot_id: :asc)
         end
     end
+
+    def self.search(query)
+        # returns all Reservations for the active Event where the query matches
+        #   last_name, first_name, or lot_name
+        if ae = Event.active_event
+            reservations = Reservation.joins(:camper, :lot).where("last_name LIKE ?", Camper.sanitize_sql_like(query) + '%').or(Reservation.joins(:camper, :lot).where("first_name LIKE ?", Camper.sanitize_sql_like(query) + '%').or(Reservation.joins(:camper, :lot).where("name LIKE ?", Lot.sanitize_sql_like(query) + '%'))).where(reservations: { event: ae })
+        else
+            Reservation.all
+           
+        end
+    end
 end
