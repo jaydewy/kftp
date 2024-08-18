@@ -151,7 +151,7 @@ class Reservation < ApplicationRecord
         # returns all Reservations for the active Event where the query matches
         #   last_name, first_name, or lot_name
         if ae = Event.active_event
-            reservations = Reservation.joins(:camper, :lot).where("last_name LIKE ?", Camper.sanitize_sql_like(query) + '%').or(Reservation.joins(:camper, :lot).where("first_name LIKE ?", Camper.sanitize_sql_like(query) + '%').or(Reservation.joins(:camper, :lot).where("name LIKE ?", Lot.sanitize_sql_like(query) + '%'))).where(reservations: { event: ae })
+            reservations = Reservation.joins(:camper, :lot).where("last_name LIKE ?", Camper.sanitize_sql_like(query) + '%').or(Reservation.joins(:camper, :lot).where("first_name LIKE ?", Camper.sanitize_sql_like(query) + '%').or(Reservation.joins(:camper, :lot).where("name LIKE ?", Lot.sanitize_sql_like(query) + '%'))).where(reservations: { event: ae }).order(:lot_id)
         else
             Reservation.all
            
