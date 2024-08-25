@@ -16,25 +16,26 @@
     </div>
 
     <div class="tp_info printonly">
-        P.O. BOX 238<br>
-        KINMOUNT, ON, K0M 2A0<br>
-        (705)488-2871<br>
-        trailerpark@kinmountfair.net
+        <p>
+            P.O. BOX 238<br>
+            KINMOUNT, ON, K0M 2A0<br>
+            (705)488-2871<br>
+            trailerpark@kinmountfair.net
+        </p>
     </div>
 
     <div class="checkin_info">
         <p>
             <span class="noprint">Checked In: 
-            <%= @reservation.checked_in %></span><br>
+            <%= @reservation.checked_in %><br></span>
                 <% if @reservation.checked_in %>
                     Check In Date: <%= @reservation.checked_in_time.strftime('%F %T') %><br>
-                    <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %></span>
+                    <span class="noprint"><%= link_to "Undo Check In", check_out_reservation_path(@reservation) %><br></span>
                 <% else %>
-                    <span class="noprint"><%= link_to "Check In", check_in_reservation_path(@reservation) %></span>
+                    <span class="noprint"><%= link_to "Check In", check_in_reservation_path(@reservation) %><br></span>
                 <% end %>
-            <br>
-            Lot: 
-            <%= @reservation.lot.name %><br>
+            <strong id="lot_num_show">Lot: 
+            <%= @reservation.lot.name %></strong><br>
         </p>
     </div>
 
@@ -49,6 +50,7 @@
         Phone 2: <%= @reservation.camper.phone_2 %><br>
         Email 2: <%= @reservation.camper.email_2 %><br>
         <span class="noprint"><%= link_to "Edit Camper Information", edit_camper_path(@reservation.camper) %></span>
+        <br>
     </div>
 
     <div class="res_info">
@@ -71,33 +73,37 @@
         <table>
             <thead>
                 <tr>
-                    <th colspan=2>Description</th>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
                     <th>Amount</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Lot Fee:</td>
-                    <td></td>
+                    <td colspan=2></td>
                     <td><%= number_to_currency(@reservation.total) %></td>
                 </tr>
                 <tr>
                     <td>Admissions:</td>
+                    <td colspan=3></td>
                 </tr>
                 <% @reservation.extra_charges.each do |exch| %>
                     <tr>
                         <td><%= exch.extra.name %>:</td>
-                        <td><%= number_to_currency(exch.extra.charge) %>x<%= exch.number %></td>
+                        <td><%= number_to_currency(exch.extra.charge) %></td>
+                        <td><%= exch.number %></td></td>
                         <td><%= number_to_currency(exch.charge) %></td>
                     </tr>
                 <% end %>
                 <tr>
-                    <td></td>
+                    <td colspan=2></td>
                     <td> Admissions Subtotal</td>
                     <td><%= number_to_currency(@reservation.get_extra_charges_total) %></td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td colspan=2></td>
                     <td>TOTAL</td>
                     <td><%= number_to_currency(@reservation.total + @reservation.get_extra_charges_total) %></td>
                 </tr>
@@ -157,10 +163,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div class="printonly">
-        HST#123670184
+        <span class="printonly">HST#123670184</span>
     </div>
     
     <div class="payment_form noprint">
