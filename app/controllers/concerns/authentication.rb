@@ -28,7 +28,7 @@ module Authentication
 
     def authenticate_user!
       store_location
-      redirect_to login_path, alert: "Access denied."
+      redirect_to login_path, alert: "Access denied." unless user_signed_in?
     end
 
     def remember(active_session)
