@@ -4,7 +4,9 @@
             <li><%= link_to image_tag("KFTPLogo_02282023.png", alt: "KFTP Logo", height: 50), root_path %></li>
         </ul>
         <ul>
-            <li><strong>KFTP</strong></li>
+            <li>
+                <% if user_signed_in? %> Logged in as <%= current_user.email %> <% end %>
+            </li>
         </ul>
         <ul>
             <li>
