@@ -1,6 +1,6 @@
 class ExtrasController < ApplicationController
   before_action :authenticate_user!
-  efore_action :set_extra, only: %i[ show edit update destroy ]
+  before_action :set_extra, only: %i[ show edit update destroy ]
 
   def index
     @extras = Extra.order(:name)
