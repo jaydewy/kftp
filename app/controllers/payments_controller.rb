@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_reservation, only: %i[ create update destroy ]
   before_action :set_payment, only: %i[ update destroy ]
 

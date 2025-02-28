@@ -1,5 +1,6 @@
 class CampersController < ApplicationController
-    before_action :set_camper, only: %i[ edit update show destroy ]
+  before_action :authenticate_user!  
+  before_action :set_camper, only: %i[ edit update show destroy ]
 
     def index
         @campers = Camper.order(:last_name)

@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   layout "reservation_show", only: [:show]
 
+  before_action :authenticate_user!
   before_action :set_reservation, only: %i[ show edit update destroy check_in check_out ]
   before_action :set_associations, only: %i[ new create edit update ]
   before_action :set_event, only: %i[ index show send_confirmation in_park search ]

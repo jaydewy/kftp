@@ -1,4 +1,5 @@
 class PaymentMethodsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_payment_method, only: %i[ show edit update destroy ]
 
   # GET /payment_methods or /payment_methods.json

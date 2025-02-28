@@ -1,4 +1,5 @@
 class LotsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_lot, only: %i[ edit update show destroy ]
   before_action :get_site_types, only: %i[ new create edit update ]
 

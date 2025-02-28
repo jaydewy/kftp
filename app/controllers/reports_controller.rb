@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-    
+    before_action :authenticate_user!
     def totals
         # temporary fn. Get all payments for all reservations, by PaymentMethod
         # Get all charges and lot fees

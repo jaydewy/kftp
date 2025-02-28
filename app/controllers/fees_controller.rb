@@ -1,4 +1,5 @@
 class FeesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_fee, only: %i[ show edit update destroy ]
   before_action :get_events_site_types, only: %i[ new create edit update show ]
 
