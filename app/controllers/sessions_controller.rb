@@ -2,6 +2,8 @@
 class SessionsController < ApplicationController
     before_action :redirect_if_authenticated, only: [:create, :new]
     before_action :authenticate_user!, only: [:destroy]
+
+    layout "login", only: [:new]
   
     def create
       @user = User.authenticate_by(email: params[:user][:email].downcase, password: params[:user][:password])
