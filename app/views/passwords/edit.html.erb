@@ -1,4 +1,5 @@
 <!-- app/views/passwords/edit.html.erb -->
+<h1>Change your password<</h1>
 <%= form_with url: password_path(params[:password_reset_token]), scope: :user, method: :put do |form| %>
   <div>
     <%= form.label :password %>
