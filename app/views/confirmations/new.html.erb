@@ -1,5 +1,7 @@
 <!-- app/views/confirmations/new.html.erb -->
 <h1>Confirm email</h1>
+<p style="color: green" class="noprint"><%= notice %></p>
+<p style="color: red" class="noprint"><%= alert %></p>
 <%= form_with model: @user, url: confirmations_path do |form| %>
   <%= form.email_field :email, required: true %>
   <%= form.submit "Confirm Email" %>
