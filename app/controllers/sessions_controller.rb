@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
     def destroy
       forget_active_session
       logout
-      redirect_to login_path, notice: "Signed out."
+      redirect_to login_path, notice: "Signed out.", status: :see_other # AKA status: 303, fixes double DELETE issue
     end
   
     def new
