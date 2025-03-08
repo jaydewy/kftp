@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-    before_action :redirect_if_authenticated, only: [:create, :new]
-    before_action :authenticate_user!, only: [:edit, :destroy, :update]
+    # before_action :redirect_if_authenticated, only: [:create, :new]
+    before_action :authenticate_user!
 
     def create
         @user = User.new(create_user_params)
         if @user.save
             @user.send_confirmation_email!
-            redirect_to root_path, notice: "Please check your email for confirmation instructions."
+            redirect_to root_path, notice: "A confirmation email has been sent to the new user."
         else
             render :new, status: :unprocessable_entity
         end
@@ -16,12 +16,14 @@ class UsersController < ApplicationController
         @user = User.new
     end
 
+    # need to update this - let admin delete other users. Low priority
     def destroy
         current_user.destroy
         reset_session
         redirect_to root_path, notice: "Your account has been deleted."
     end
 
+    # update - admin edit users
     def edit
         @user = current_user
         @active_sessions = @user.active_sessions.order(created_at: :desc)

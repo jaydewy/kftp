@@ -44,8 +44,10 @@ Rails.application.routes.draw do
   resources :events
 
   # Define routes for user authentication
-  post "sign_up", to: "users#create"
-  get "sign_up", to: "users#new"
+  # post "sign_up", to: "users#create"
+  # get "sign_up", to: "users#new"
+
+  resources :users, only: [:create, :new]
 
   resources :confirmations, only: [:create, :edit, :new], param: :confirmation_token
   
