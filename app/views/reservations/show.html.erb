@@ -174,7 +174,7 @@
             <table>
                 <tr>
                     <td><%= f.label :amount, "Payment Amount" %></td>
-                    <td><%= f.number_field :amount %></td>
+                    <td><%= f.number_field :amount, value: @reservation.due %></td>
                 </tr>
                 <tr>
                     <td><%= f.label :payment_method_id, "Method" %></td>
