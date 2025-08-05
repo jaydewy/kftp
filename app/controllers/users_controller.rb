@@ -2,6 +2,11 @@ class UsersController < ApplicationController
     # before_action :redirect_if_authenticated, only: [:create, :new]
     before_action :authenticate_user!
 
+    def index
+      # need a list of all users that eventuaally an admin can view and manage
+      
+    end
+    
     def create
         @user = User.new(create_user_params)
         if @user.save
