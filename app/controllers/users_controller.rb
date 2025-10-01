@@ -3,8 +3,8 @@ class UsersController < ApplicationController
     before_action :authenticate_user!
 
     def index
-      # need a list of all users that eventuaally an admin can view and manage
-      
+      # need a list of all users that eventually an admin can view and manage
+      @users = User.all.order(created_at: :desc)
     end
     
     def create
