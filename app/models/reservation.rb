@@ -118,10 +118,10 @@ class Reservation < ApplicationRecord
     def self.active_reservations_for_index
         # return only specfic fields from all Reservations for the current active Event
         if ae = Event.active_event
-            ae.reservations.select(:id, :camper_id, :lot_id, :total, :checked_in).order(:lot_id)
+            ae.reservations.select(:id, :camper_id, :lot_id, :total, :checked_in, :checked_in_time).order(:lot_id)
         else
             # decide what to return here - error message perhaps, or a notice
-            Reservation.select(:id, :camper_id, :lot_id, :total, :checked_in).order(:lot_id)
+            Reservation.select(:id, :camper_id, :lot_id, :total, :checked_in, :checked_in_time).order(:lot_id)
         end
     end
 
