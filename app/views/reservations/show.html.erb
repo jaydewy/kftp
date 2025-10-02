@@ -46,9 +46,9 @@
         City: <%= @reservation.camper.city + ", " + @reservation.camper.province %><br>
         Postal Code: <%= @reservation.camper.postal_code %><br>
         Phone: <%= @reservation.camper.phone %><br>
-        Email: <%= @reservation.camper.email %><br>
+        Email: <%= mail_to @reservation.camper.email %><br>
         Phone 2: <%= @reservation.camper.phone_2 %><br>
-        Email 2: <%= @reservation.camper.email_2 %><br>
+        Email 2: <%= mail_to @reservation.camper.email_2 %><br>
         <span class="noprint"><%= link_to "Edit Camper Information", edit_camper_path(@reservation.camper) %></span>
         <br>
     </div>
