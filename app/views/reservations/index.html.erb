@@ -46,10 +46,10 @@
                     <td><%= link_to reservation.camper.last_name + ', ' + reservation.camper.first_name, reservation %></td>
                     <td><%= number_to_currency(reservation.due) %> </td>
                     <td><%= unless reservation.invoices.empty? 
-                                reservation.invoices.last.created_at.strftime('%F %T')
+                                reservation.invoices.last.created_at.strftime('%F %R')
                             end %></td>
                     <td><%= if reservation.checked_in
-                                reservation.checked_in_time.strftime('%F %T')
+                                reservation.checked_in_time.strftime('%F %R')
                             end %></td>
                     <% if reservation.checked_in %>
                         <td><%= link_to "Undo Check In", check_out_reservation_path(reservation), class: "noprint" %></td>
