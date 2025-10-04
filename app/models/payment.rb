@@ -4,6 +4,7 @@ class Payment < ApplicationRecord
     belongs_to :invoice, optional: true
 
     enum :status, { approved: 1, completed: 2, canceled: 3, failed: 4 }, prefix: true
+    # update status values as needed - default is not currently defined
 
     # to-do list
     #   add validations
