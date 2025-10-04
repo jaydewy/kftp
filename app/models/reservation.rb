@@ -15,9 +15,9 @@ class Reservation < ApplicationRecord
 
     validates_with ReservationValidator
 
-    scope :active, -> { where(event: Event.active) }
+    scope :for_active_event, -> { where(event: Event.active) }
 
-    enum :status, { active: 0, cancelled: 1, revoked: 2 }, prefix: true
+    enum :status, { active: 0, cancelled: 1, revoked: 2 }
 
     # to-do list
     #   DONE - need code to check for conflicts with lots per event - validator
@@ -143,7 +143,7 @@ class Reservation < ApplicationRecord
         #   v1
         discounts = Discount.all
         discounts.each_with_object(Hash.new(0)) do |d,res_list_by_discount|
-            res_list_by_discount[d] = d.reservations.merge(Reservation.active).order(lot_id: :asc)
+            res_list_by_discount[d] = d.reservations.merge(Reservation.for_active_event).order(lot_id: :asc)
         end
     end
 

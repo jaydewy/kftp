@@ -38,7 +38,7 @@ class Payment < ApplicationRecord
 
     def self.get_payment_totals_active_event
         # Get totals of all Payments made for the active Event, by PaymentMethod
-        payments = Payment.joins(:reservation).merge(Reservation.active)
+        payments = Payment.joins(:reservation).merge(Reservation.for_active_event)
         payments.each_with_object(Hash.new(0)) do |p, totals|
             totals[p.payment_method] += p.amount
         end
