@@ -2,6 +2,8 @@ class UsersController < ApplicationController
     # before_action :redirect_if_authenticated, only: [:create, :new]
     # We need a user to be able to create other users, so we don't need the redirect above
     before_action :authenticate_user!
+    before_action :set_user, only: %i[ edit update ]
+
 
     def index
       # need a list of all users that eventually an admin can view and manage
@@ -29,14 +31,11 @@ class UsersController < ApplicationController
         redirect_to root_path, notice: "Your account has been deleted."
     end
 
-    # update - admin edit users
     def edit
-        @user = current_user
         @active_sessions = @user.active_sessions.order(created_at: :desc)
     end
 
     def update
-        @user = current_user
         @active_sessions = @user.active_sessions.order(created_at: :desc)
 
         if @user.authenticate(params[:user][:current_password])
@@ -57,6 +56,14 @@ class UsersController < ApplicationController
     end
 
     private
+
+    def set_user
+        if params[:id].present?
+          @user = User.find(params[:id])
+        else
+          @user = current_user
+        end
+    end
 
     def create_user_params
         params.require(:user).permit(:email, :password, :password_confirmation, :firstname, :lastname, :username)

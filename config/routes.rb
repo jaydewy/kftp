@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   # post "sign_up", to: "users#create"
   # get "sign_up", to: "users#new"
 
-  resources :users, only: [:create, :new, :index] # 05/19 just added index. Need a view for a list of all users for an admin to manage
+  resources :users, only: [:create, :new, :index, :edit, :update] # 05/19 just added index. Need a view for a list of all users for an admin to manage
 
   resources :confirmations, only: [:create, :edit, :new], param: :confirmation_token
   
