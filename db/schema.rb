@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_25_035219) do
+ActiveRecord::Schema[7.0].define(version: 2025_10_05_031813) do
   create_table "active_sessions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -248,10 +248,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_25_035219) do
     t.datetime "confirmed_at"
     t.string "password_digest", null: false
     t.string "unconfirmed_email"
+    t.string "firstname"
+    t.string "lastname"
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "charges", "fees"
   add_foreign_key "charges", "reservations"
   add_foreign_key "extra_charges", "extras"

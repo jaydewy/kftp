@@ -78,10 +78,10 @@ class User < ApplicationRecord
         if (record = find_by(identifiers))
           record if passwords.count { |name, value| record.public_send(:"authenticate_#{name}", value) } == passwords.size
         else
-          new(passwords)
-          nil
+           new(passwords)
+            nil
         end
-      end
+    end
 
     private
     
