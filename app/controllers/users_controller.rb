@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     # before_action :redirect_if_authenticated, only: [:create, :new]
+    # We need a user to be able to create other users, so we don't need the redirect above
     before_action :authenticate_user!
 
     def index
@@ -58,10 +59,10 @@ class UsersController < ApplicationController
     private
 
     def create_user_params
-        params.require(:user).permit(:email, :password, :password_confirmation)
+        params.require(:user).permit(:email, :password, :password_confirmation, :firstname, :lastname, :username)
     end
 
     def update_user_params
-        params.require(:user).permit(:current_password, :password, :password_confirmation, :unconfirmed_email)
+        params.require(:user).permit(:current_password, :password, :password_confirmation, :unconfirmed_email, :firstname, :lastname, :username)
     end
 end
