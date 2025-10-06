@@ -26,16 +26,24 @@ class UsersController < ApplicationController
 
     # need to update this - let admin delete other users. Low priority
     def destroy
-        current_user.destroy
-        reset_session
-        redirect_to root_path, notice: "Your account has been deleted."
+      if params[:id].present?
+          user = User.find(params[:id])
+          user.destroy
+          redirect_to users_path, notice: "User account has been deleted.", status: :see_other
+      else
+          current_user.destroy
+          reset_session
+          redirect_to root_path, notice: "Your account has been deleted."
+      end
     end
 
     def edit
+      # user being set in callback
         @active_sessions = @user.active_sessions.order(created_at: :desc)
     end
 
     def update
+      # user being set in callback
         @active_sessions = @user.active_sessions.order(created_at: :desc)
 
         if @user.authenticate(params[:user][:current_password])
