@@ -3,7 +3,7 @@
 <h2><%= @active_event.name %></h2>
 
 <p style="color: green"><%= notice %></p>
-<% # %>
+<p style="color: red"><%= alert %></p>
 
 <%= link_to "Create New Lot", new_lot_path %><br>
 
@@ -25,7 +25,7 @@
                     <td><%= lot.width %>'</td>
                     <td><%= lot.length %>'</td>
                     <td><%= lot.site_type.name %></td>
-                    <td><%= number_to_currency(lot.active_fee.amount) %></td>
+                    <td><%= number_to_currency(lot.active_fee&.amount) %></td>
                     <td><%= lot.special_condition %></td>
                 </tr>
             <% end %>    
