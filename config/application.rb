@@ -20,5 +20,7 @@ module Kftp
     # config.eager_load_paths << Rails.root.join("extras")
     config.require_master_key = true
 
+    config.filter_parameters << :password
+
   end
 end
