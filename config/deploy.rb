@@ -5,7 +5,7 @@ set :application, "kftp"
 set :repo_url, "git@github.com:jaydewy/kftp.git"
 
 # Use RVM on server
-set :rvm_ruby_version, "ruby-3.1.0"
+set :rvm_ruby_version, "ruby-3.2.9"
 set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 
 # Default branch is :master
