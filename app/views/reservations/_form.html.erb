@@ -40,6 +40,9 @@
     <%= form.label :special_request, "Notes" %>
     <%= form.text_field :special_request %>
 
+    <%= form.label :status, "Reservation Status" %>
+    <%= form.collection_select :status, Reservation.statuses[:active, :pending]%>
+
     <%= form.label :non_renewable, "Non-Renewable?" %>
     <%= form.check_box :non_renewable %><br><br>
  
