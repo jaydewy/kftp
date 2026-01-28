@@ -33,6 +33,7 @@
                 <th>Lot</th>
                 <th>Name</th>
                 <th>Owing</th>
+                <th>Status</th>
                 <th>Last Sent</th>
                 <th>Checked In</th>
                 <th></th>
@@ -45,6 +46,7 @@
                     <td><%= reservation.lot.name %></td>
                     <td><%= link_to reservation.camper.last_name + ', ' + reservation.camper.first_name, reservation %></td>
                     <td><%= number_to_currency(reservation.due) %> </td>
+                    <td><%= reservation.status %> </td>
                     <td><%= unless reservation.invoices.empty? 
                                 reservation.invoices.last.created_at.strftime('%F %R')
                             end %></td>
