@@ -3,6 +3,9 @@ class Event < ApplicationRecord
     has_many :extras
     has_many :fees
 
+    # Associations for linked events
+    # The `linked_events` association allows an Event to have many other Events that reference it as their previous_event. The `previous_event` association allows an Event to belong to another Event as its previous_event. 
+    # This setup enables a chain of events where each event can reference the one that came before it (or that it should otherwise pull Reservations from), creating a linked list of events.
     has_many :linked_events, class_name: "Event", foreign_key: "previous_event_id"
     belongs_to :previous_event, class_name: "Event", optional: true                                                                                  
 
