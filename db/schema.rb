@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_10_05_031813) do
+ActiveRecord::Schema[7.0].define(version: 2026_11_16_115106) do
   create_table "active_sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -65,6 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_05_031813) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: false, null: false
+    t.bigint "previous_event_id"
+    t.index ["previous_event_id"], name: "index_events_on_previous_event_id"
   end
 
   create_table "extra_charges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -248,6 +250,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_05_031813) do
   add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "charges", "fees"
   add_foreign_key "charges", "reservations"
+  add_foreign_key "events", "events", column: "previous_event_id"
   add_foreign_key "extra_charges", "extras"
   add_foreign_key "extra_charges", "reservations"
   add_foreign_key "groups", "campers"

@@ -3,7 +3,7 @@ class Event < ApplicationRecord
     has_many :extras
     has_many :fees
 
-    has_many :previous_events, class_name: "Event", foreign_key: "previous_event_id"
+    has_many :linked_events, class_name: "Event", foreign_key: "previous_event_id"
     belongs_to :previous_event, class_name: "Event", optional: true                                                                                  
 
     before_save :deactivate_current_event, if: :activating_new_event?
