@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :set_user, only: %i[ edit update ]
 
+    # modify the actions to 1. allow an admin to work on other Users and 2. still allow a logged in user to make changes to themself
 
     def index
       # need a list of all users that eventually an admin can view and manage
@@ -11,6 +12,8 @@ class UsersController < ApplicationController
     end
     
     def create
+      # tailor this to an admin creating new users, rather than a user signing up for themselves. We don't want to log in the new user, just create them.
+      #   redirect/return to previous page 
         @user = User.new(create_user_params)
         if @user.save
             @user.send_confirmation_email!
