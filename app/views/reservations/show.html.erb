@@ -26,6 +26,7 @@
 
     <div class="checkin_info">
         <p>
+            <strong>Permit Status: <%= @reservation.status.capitalize %></strong><br>
             <span class="noprint">Checked In: 
             <%= @reservation.checked_in %><br></span>
                 <% if @reservation.checked_in %>
@@ -36,6 +37,7 @@
                 <% end %>
             <strong id="lot_num_show">Lot: 
             <%= @reservation.lot.name %></strong><br>
+            
         </p>
     </div>
 

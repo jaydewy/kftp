@@ -1,3 +1,5 @@
 <h1>Edit Reservation Details</h1>
 
 <%= render "form", reservation: @reservation %>
+
+<%= link_to "Cancel Reservation", cancel_reservation_path(@reservation), class: "noprint" %>

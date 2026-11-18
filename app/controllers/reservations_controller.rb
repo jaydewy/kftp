@@ -7,7 +7,11 @@ class ReservationsController < ApplicationController
   before_action :set_event, only: %i[ index show send_confirmation in_park search ]
 
   def index
-    @reservations = Reservation.active_reservations_for_index
+    if params[:view_all] == "true"
+      @reservations = Reservation.active_reservations
+    else
+      @reservations = Reservation.active_reservations_for_index
+    end
     @in_park_count = Reservation.in_park_reservations.size
   end
 
@@ -114,6 +118,12 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def cancel
+    @reservation = Reservation.find(params[:id])
+    @reservation.cancelled!
+    redirect_to reservations_path, notice: "Reservation was successfully cancelled."
+  end
+
   # collection routes
 
   def in_park
@@ -147,6 +157,6 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:fair_year, :deposit, :override_total, :special_request, :slides, :length, :vehicle_license, :vehicle_province, :vehicle_license_2, :vehicle_province_2, :checked_in, :adults, :pets, :kids, :total, :confirmed, :ext_charges, :tax_str, :tax_amount, :log, :onetime_discount, :archived, :cancelled, :checked_in_time, :lot_id, :discount_id, :group_id, :camper_id, :non_renewable, :event_id, extra_charges_attributes: [:id, :extra_id, :number, :charge])
+      params.require(:reservation).permit(:status, :special_request, :slides, :length, :vehicle_license, :vehicle_province, :vehicle_license_2, :vehicle_province_2, :checked_in, :total, :confirmed, :ext_charges, :checked_in_time, :lot_id, :discount_id, :group_id, :camper_id, :non_renewable, :event_id, extra_charges_attributes: [:id, :extra_id, :number, :charge])
     end
 end

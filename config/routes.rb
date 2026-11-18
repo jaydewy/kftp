@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'check_in'
       get 'check_out'
       post 'send_confirmation'
+      get 'cancel'
     end
     collection do
       get 'search'

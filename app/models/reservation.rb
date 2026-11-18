@@ -17,7 +17,7 @@ class Reservation < ApplicationRecord
 
     scope :for_active_event, -> { where(event: Event.active) }
 
-    enum :status, { active: 0, pending: 1, cancelled: 2, revoked: 3 }
+    enum :status, { active: 0, pending: 1, cancelled: 2, revoked: 3 }, default: :active
 
     # to-do list
     #   DONE - need code to check for conflicts with lots per event - validator
@@ -118,10 +118,10 @@ class Reservation < ApplicationRecord
     def self.active_reservations_for_index
         # return only specfic fields from all Reservations for the current active Event
         if ae = Event.active_event
-            ae.reservations.select(:id, :camper_id, :lot_id, :total, :checked_in, :checked_in_time).order(:lot_id)
+            ae.reservations.select(:id, :camper_id, :lot_id, :total, :checked_in, :checked_in_time, :status).where.not(status: :cancelled).order(:lot_id)
         else
             # decide what to return here - error message perhaps, or a notice
-            Reservation.select(:id, :camper_id, :lot_id, :total, :checked_in, :checked_in_time).order(:lot_id)
+            Reservation.select(:id, :camper_id, :lot_id, :total, :checked_in, :checked_in_time).where.not(status: :cancelled).order(:lot_id)
         end
     end
 

@@ -42,6 +42,9 @@
 
     <%= form.label :non_renewable, "Non-Renewable?" %>
     <%= form.check_box :non_renewable %><br><br>
+
+    <%= form.label :status, "Status" %>
+    <%= form.select :status, options_for_select([['Active', 'active'], ['Pending', 'pending']]), {}, { disabled: @reservation.cancelled? || @reservation.revoked? } %>
  
     
 

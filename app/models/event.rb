@@ -23,17 +23,16 @@ class Event < ApplicationRecord
         return unless previous_event.present?
         previous_event.reservations.each do |r|
             next if r.non_renewable? # Skip non-renewable reservations
+            next unless r.active? # Skip reservations that are not active
             self.reservations.create(
                 camper: r.camper,
                 lot: r.lot,
                 discount: r.discount,
                 group: r.group,
                 status: :pending,
-                #event: self,
                 length: r.length,
                 vehicle_license: r.vehicle_license,
                 special_request: r.special_request
-                # Copy any other relevant attributes from the original reservation
             )
         end
     end
