@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         # check whether to copy reservations from previous event
-        if params[:copy_reservations_from_previous_event] == "1" && @event.previous_event.present?
+        if params[:copy_reservations_from_previous_event] == "yes" && @event.previous_event.present?
           @event.copy_reservations_from_previous_event!
         end
         format.html { redirect_to events_path, notice: "Event was successfully created." }
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @event.update(event_params)
+      if @event.update(event_params.except(:previous_event_id)) # previous_event can only be set at creation time, not updated later
         format.html { redirect_to events_path, notice: "Event was successfully updated." }
         format.json { render :show, status: :ok, location: @event }
       else

@@ -23,13 +23,16 @@
     <%= f.check_box :active %>
     <%= f.label :active, "Set as active event" %><br />
 
+    <p></p>
+    <p>Previous event can only be set at creation time, not updated later. If reservations are to be copied, this must also be done at creation time.</p>
+
     <%= f.label :previous_event_id, "Previous Event" %>
-    <%= f.collection_select :previous_event_id, Event.where.not(id: @event.id), :id, :name, include_blank: true %>
-    
-    <%= check_box_tag :copy_reservations_from_previous_event %>
+    <%= f.collection_select :previous_event_id, Event.where.not(id: @event.id), :id, :name, { include_blank: true }, { disabled: @event.persisted? } %> 
+
+    <%= check_box_tag :copy_reservations_from_previous_event, 'yes', false, disabled: @event.persisted? %>
     <%= label_tag "Copy reservations from previous event?" %><br /> 
+    <p></p>
 
-
-    <%= f.submit "Save Event" %>
+    <%= f.submit %>
 
 <% end %>
