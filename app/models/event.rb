@@ -17,6 +17,27 @@ class Event < ApplicationRecord
 
     # Instance methods
 
+    def copy_reservations_from_previous_event!
+        # This method copies all reservations from the previous event to the current event, excepting any marked non-renewable.
+        # It duplicates each reservation, associates it with the current event, sets the status to pending, and saves it.
+        return unless previous_event.present?
+        previous_event.reservations.each do |r|
+            next if r.non_renewable? # Skip non-renewable reservations
+            self.reservations.create(
+                camper: r.camper,
+                lot: r.lot,
+                discount: r.discount,
+                group: r.group,
+                status: :pending,
+                #event: self,
+                length: r.length,
+                vehicle_license: r.vehicle_license,
+                special_request: r.special_request
+                # Copy any other relevant attributes from the original reservation
+            )
+        end
+    end
+
     # Class methods
 
     def self.active_event

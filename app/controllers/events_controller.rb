@@ -19,6 +19,10 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        # check whether to copy reservations from previous event
+        if params[:copy_reservations_from_previous_event] == "1" && @event.previous_event.present?
+          @event.copy_reservations_from_previous_event!
+        end
         format.html { redirect_to events_path, notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
@@ -59,6 +63,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :start_date, :end_date, :active)
+    params.require(:event).permit(:name, :start_date, :end_date, :active, :previous_event_id, :copy_reservations_from_previous_event)
   end
 end

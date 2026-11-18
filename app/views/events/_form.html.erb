@@ -21,7 +21,14 @@
     <%= f.date_field :end_date %>
 
     <%= f.check_box :active %>
-    <%= f.label :active, "Set as active event" %>
+    <%= f.label :active, "Set as active event" %><br />
+
+    <%= f.label :previous_event_id, "Previous Event" %>
+    <%= f.collection_select :previous_event_id, Event.where.not(id: @event.id), :id, :name, include_blank: true %>
+    
+    <%= check_box_tag :copy_reservations_from_previous_event %>
+    <%= label_tag "Copy reservations from previous event?" %><br /> 
+
 
     <%= f.submit "Save Event" %>
 

@@ -9,6 +9,7 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Total Reservations</th>
+            <th>Previous Event</th>
             <th>Active Event</th>
             <th></th>
         </tr>
@@ -20,7 +21,8 @@
                 <td><%= event.start_date %></td>
                 <td><%= event.end_date %></td>
                 <td><%= event.reservations.count %></td>
-                <td><%= event.active %></td>
+                <td><%= event.previous_event&.name || "N/A" %></td>
+                <td><%= event.active ? "Yes" : "No" %></td>
                 <td><%= link_to "Delete Event", event_path(event), data: {
             turbo_method: :delete,
             turbo_confirm: "Are you sure you want to delete this event?"
