@@ -2,8 +2,10 @@
 <h1>Update user profile</h1>
 <p style="color: green" class="noprint"><%= notice %></p>
 <p style="color: red" class="noprint"><%= alert %>
-<%= form_with model: @user, url: account_path, method: :put do |form| %>
-  <%= render partial: "shared/form_errors", locals: { object: form.object } %>
+<%# render "shared/flashes" %>
+
+<%= form_with model: @user do |form| %>
+  <%= render partial: "shared/form_errors", locals: { object: @user } %>
   <div>
     <%= form.label :firstname, "First Name" %>
     <%= form.text_field :firstname, disabled: true %>
@@ -56,4 +58,8 @@
       <%= render @active_sessions %>
     </tbody>
   </table>
+<% else %>
+  <p>No active sessions found.</p>
 <% end %>
+
+<%= link_to "Back to Users", users_path %>

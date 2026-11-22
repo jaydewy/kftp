@@ -1,0 +1,8 @@
+<!-- app/views/shared/_flashes.html.erb -->
+
+
+<% flash.each do |type, messages| %>
+  <% Array(messages).each do |message| %>
+    <%= render "shared/flash", type:, message: %>
+  <% end %>
+<% end %>

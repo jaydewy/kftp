@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+  # Refer to https://stevepolito.design/blog/rails-authentication-from-scratch for the guide used to create this authenticaiton system
     # before_action :redirect_if_authenticated, only: [:create, :new]
     # We need a user to be able to create other users, so we don't need the redirect above
     before_action :authenticate_user!
-    before_action :set_user, only: %i[ edit update ]
+    before_action :set_user, only: %i[ edit ]
 
     # modify the actions to 1. allow an admin to work on other Users and 2. still allow a logged in user to make changes to themself
 
@@ -16,8 +17,11 @@ class UsersController < ApplicationController
       #   redirect/return to previous page 
         @user = User.new(create_user_params)
         if @user.save
-            @user.send_confirmation_email!
-            redirect_to root_path, notice: "A confirmation email has been sent to the new user."
+          # original implementation. For back office purposes only, no need to do the full confirmation process.
+          # @user.send_confirmation_email!
+          # redirect_to users_path, notice: "A confirmation email has been sent to the new user."
+          @user.confirm!
+          redirect_to users_path, notice: "User account has been created."
         else
             render :new, status: :unprocessable_entity
         end
@@ -46,22 +50,28 @@ class UsersController < ApplicationController
     end
 
     def update
-      # user being set in callback
+        @user = User.find(params[:id])
         @active_sessions = @user.active_sessions.order(created_at: :desc)
 
         if @user.authenticate(params[:user][:current_password])
           if @user.update(update_user_params)
             if params[:user][:unconfirmed_email].present?
-              @user.send_confirmation_email!
-              redirect_to root_path, notice: "Check your email for confirmation instructions."
+              # @user.send_confirmation_email!
+              # redirect_to users_path, notice: "Check your email for confirmation instructions."
+              @user.confirm!
+              redirect_to users_path, notice: "Account updated and email confirmed."
             else
-              redirect_to root_path, notice: "Account updated."
+              redirect_to users_path, notice: "Account updated."
             end
           else
+            # flash.now[:error] = "Update failed for #{@user}"
+            flash.now.alert = "Update failed for #{@user}"
             render :edit, status: :unprocessable_entity
           end
         else
-          flash.now[:error] = "Incorrect password"
+          flash.now.alert = "Incorrect password "
+          # flash.now[:error] = "Incorrect password"
+          
           render :edit, status: :unprocessable_entity
         end
     end
