@@ -46,7 +46,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # config.force_ssl = true
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
@@ -63,18 +63,6 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "kftp_production"
 
   config.action_mailer.perform_caching = false
-
-  # SMTP Configuration - Jan 24 2023
-  # THIS NEEDS TO BE TREATED AS A SECRET!!!
-  # Secrets added to server Mar 5 2023
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.dreamhost.com',
-    port: 465,
-    user_name: ENV["KFTP_SMTP_USER_NAME"],
-    password: ENV["KFTP_SMTP_PASSWORD"],
-    authentication: :login,
-    ssl: true
-  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
