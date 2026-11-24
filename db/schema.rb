@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_11_23_120518) do
+ActiveRecord::Schema[7.1].define(version: 2026_11_24_033556) do
   create_table "active_sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_11_23_120518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "paid_date"
+    t.integer "status", default: 0
     t.index ["reservation_id"], name: "index_invoices_on_reservation_id"
   end
 
